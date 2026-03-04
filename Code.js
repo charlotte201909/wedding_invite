@@ -46,42 +46,28 @@ function isDuplicate(sheet, email) {
   return false;
 }
 
-// ─── Confirmation email to guest ──────────────────────────────────────────────
+// ─── Calendar invite to guest ─────────────────────────────────────────────────
 function sendConfirmation(name, email) {
   const firstName = name.split(' ')[0] || name;
 
-  const ics = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//Charlotte & Charles//Save the Date//EN',
-    'BEGIN:VEVENT',
-    'DTSTART;TZID=Australia/Sydney:20270313T180000',
-    'DTEND;TZID=Australia/Sydney:20270314T000000',
-    'SUMMARY:Charlotte & Charles\' Wedding \uD83E\uDD42',
-    'DESCRIPTION:We cannot wait to celebrate with you. All the details to follow!',
-    'LOCATION:Sydney, Australia',
-    'STATUS:CONFIRMED',
-    'END:VEVENT',
-    'END:VCALENDAR'
-  ].join('\r\n');
+  const start = new Date('2027-03-13T18:00:00+11:00'); // 6pm AEDT
+  const end   = new Date('2027-03-14T00:00:00+11:00'); // midnight
 
-  const subject = 'You\'re on our list \uD83E\uDD42 · 13 March 2027';
-
-  const body =
-    'Hi ' + firstName + ',\n\n' +
-    'You\'re officially on our list \u2014 we\'re so happy you\'ll be there!\n\n' +
-    'Save the date: ' + WEDDING_DATE + '.\n\n' +
-    'We\'ll send all the details (venue, schedule, everything) closer to the time. ' +
-    'In the meantime, we\'ve attached a calendar invite so you don\'t forget. \uD83D\uDC3E\n\n' +
-    'Can\'t wait to celebrate with you.\n\n' +
-    'All our love,\n' +
-    'Charlotte & Charles\n' +
-    '(and Gingie & Meg \uD83D\uDC3E)';
-
-  GmailApp.sendEmail(email, subject, body, {
-    name: 'Charlotte & Charles',
-    attachments: [Utilities.newBlob(ics, 'text/calendar;charset=utf-8', 'save-the-date.ics')]
-  });
+  CalendarApp.getDefaultCalendar().createEvent(
+    "Charlotte & Charles' Wedding \uD83E\uDD42",
+    start, end,
+    {
+      description:
+        'Hi ' + firstName + ',\n\n' +
+        'We\u2019re so happy you\u2019ll be there!\n\n' +
+        'All the details (venue, schedule, everything) to follow closer to the date.\n\n' +
+        'Can\u2019t wait to celebrate with you.\n\n' +
+        'All our love,\nCharlotte & Charles\n(and Gingie & Meg \uD83D\uDC3E)',
+      location: 'Sydney, Australia',
+      guests: email,
+      sendInvites: true
+    }
+  );
 }
 
 // ─── Notification to couple ───────────────────────────────────────────────────
