@@ -10,6 +10,7 @@ function doPost(e) {
   const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
   const name = e.parameter.name || '';
   const email = e.parameter.email || '';
-  sheet.appendRow([new Date(), name, email]);
+  const mobile = e.parameter.mobile || '';
+  sheet.appendRow([new Date(), name, email, mobile]);
   return ContentService.createTextOutput('ok');
 }
