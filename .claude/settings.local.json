@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(clasp push)",
+      "Bash(clasp push --force)",
+      "Bash(clasp deployments)",
+      "Bash(clasp deploy --deploymentId AKfycbz80XxYB-BgTV2XBlqRDNIrcgblBRFXvNzkyiINbbiF41t_ReKP1Hx6qw8QiG9VCIDdUA --description \"Wedding_invite_v2\")",
+      "Bash(clasp deploy --deploymentId AKfycbxc5sSXo9XteTfrsBeafB3e5M2dEZWF9ZPSOOOLBazxbE5-Xwtf87iKQd7p1OG-hW6KcA --description \"Wedding_invite_v1\")",
+      "Bash(python -c \":*)",
+      "Bash(clasp deploy --deploymentId AKfycbxc5sSXo9XteTfrsBeafB3e5M2dEZWF9ZPSOOOLBazxbE5-Xwtf87iKQd7p1OG-hW6KcA --description \"v5-sheet-connected\")",
+      "Bash(node -e \":*)"
+    ]
+  }
+}
