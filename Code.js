@@ -9,7 +9,7 @@ function doGet() {
 }
 
 function doPost(e) {
-  const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
+  const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('RSVP');
 
   const name         = e.parameter.name         || '';
   const email        = e.parameter.email        || '';
@@ -90,7 +90,7 @@ function sendInvites() {
   const VENUE    = 'YOUR VENUE HERE';          // ← fill in when confirmed
   const RSVP_URL = 'YOUR RSVP PAGE URL HERE';  // ← fill in for Phase 2
 
-  const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
+  const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('RSVP');
   const rows  = sheet.getDataRange().getValues();
 
   let sent = 0;
