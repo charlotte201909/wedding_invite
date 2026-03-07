@@ -30,18 +30,11 @@ function doPost(e) {
     return ContentService.createTextOutput('ok');
   }
 
-  sheet.appendRow([new Date(), name, email, mobile, guests, partner, origin, dietaryFull, song, '', '']);
+  sheet.appendRow([new Date(), name, email, mobile, guests, partner, origin, dietaryFull, song, '']);
   const rowNum = sheet.getLastRow();
   Logger.log('Row appended for %s at row %s', email, rowNum);
 
-  let emailSent = false, calSent = false;
-  try {
-    sendGuestEmail(name, email);
-    emailSent = true;
-    Logger.log('Confirmation email sent to %s', email);
-  } catch(err) {
-    Logger.log('ERROR sending email to %s: %s', email, err.message);
-  }
+  let calSent = false;
   try {
     sendCalendarInvite(email);
     calSent = true;
@@ -49,8 +42,7 @@ function doPost(e) {
   } catch(err) {
     Logger.log('ERROR sending calendar invite to %s: %s', email, err.message);
   }
-  sheet.getRange(rowNum, 10).setValue(emailSent);
-  sheet.getRange(rowNum, 11).setValue(calSent);
+  sheet.getRange(rowNum, 10).setValue(calSent);
 
   try {
     notifyCouple(name, email, mobile, guests, partner, origin, dietaryFull, song);
@@ -69,36 +61,6 @@ function isDuplicate(sheet, email) {
     if ((values[i][2] || '').toLowerCase() === email.toLowerCase()) return true;
   }
   return false;
-}
-
-// ─── Confirmation email to guest ──────────────────────────────────────────────
-function sendGuestEmail(name, email) {
-  const firstName = name.split(' ')[0] || name;
-
-  const subject = 'You\u2019re invited \u00B7 Charlotte & Charles \u00B7 13 March 2027';
-
-  const plainBody =
-    'Hi ' + firstName + ',\n\n' +
-    'We\u2019re so happy you\u2019ll be there!\n\n' +
-    'Save the date:\n' +
-    'Saturday, 13th March 2027 \u00B7 6pm \u2013 late \u00B7 Sydney, Australia\n\n' +
-    'Venue and all the details to follow closer to the date.\n\n' +
-    'Can\u2019t wait to celebrate with you.\n\n' +
-    'All our love,\nCharlotte & Charles\n(and Gingie & Meg)';
-
-  const htmlBody =
-    '<p>Hi ' + firstName + ', &#x1F970;</p>' +
-    '<p>We\u2019re so happy you\u2019ll be there!</p>' +
-    '<p><strong>Save the date:</strong><br>' +
-    'Saturday, 13th March 2027 &middot; 6pm &ndash; late &middot; Sydney, Australia &#x1F973;</p>' +
-    '<p>Venue and all the details to follow closer to the date.</p>' +
-    '<p>Can\u2019t wait to celebrate with you. &#x1F942;</p>' +
-    '<p>All our love,<br>Charlotte &amp; Charles<br>(and Gingie &amp; Meg &#x1F43E;)</p>';
-
-  GmailApp.sendEmail(email, subject, plainBody, {
-    name: 'Charlotte & Charles',
-    htmlBody: htmlBody
-  });
 }
 
 // ─── Calendar invite to guest ─────────────────────────────────────────────────
