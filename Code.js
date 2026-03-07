@@ -30,15 +30,27 @@ function doPost(e) {
     return ContentService.createTextOutput('ok');
   }
 
-  sheet.appendRow([new Date(), name, email, mobile, guests, partner, origin, dietaryFull, song]);
-  Logger.log('Row appended for %s', email);
+  sheet.appendRow([new Date(), name, email, mobile, guests, partner, origin, dietaryFull, song, '', '']);
+  const rowNum = sheet.getLastRow();
+  Logger.log('Row appended for %s at row %s', email, rowNum);
 
+  let emailSent = false, calSent = false;
   try {
-    sendConfirmation(name, email);
+    sendGuestEmail(name, email);
+    emailSent = true;
     Logger.log('Confirmation email sent to %s', email);
   } catch(err) {
-    Logger.log('ERROR sending confirmation to %s: %s', email, err.message);
+    Logger.log('ERROR sending email to %s: %s', email, err.message);
   }
+  try {
+    sendCalendarInvite(email);
+    calSent = true;
+    Logger.log('Calendar invite sent to %s', email);
+  } catch(err) {
+    Logger.log('ERROR sending calendar invite to %s: %s', email, err.message);
+  }
+  sheet.getRange(rowNum, 10).setValue(emailSent);
+  sheet.getRange(rowNum, 11).setValue(calSent);
 
   try {
     notifyCouple(name, email, mobile, guests, partner, origin, dietaryFull, song);
@@ -59,8 +71,8 @@ function isDuplicate(sheet, email) {
   return false;
 }
 
-// ─── Confirmation email + calendar invite to guest ────────────────────────────
-function sendConfirmation(name, email) {
+// ─── Confirmation email to guest ──────────────────────────────────────────────
+function sendGuestEmail(name, email) {
   const firstName = name.split(' ')[0] || name;
 
   const subject = 'You\u2019re invited \u00B7 Charlotte & Charles \u00B7 13 March 2027';
@@ -87,8 +99,10 @@ function sendConfirmation(name, email) {
     name: 'Charlotte & Charles',
     htmlBody: htmlBody
   });
+}
 
-  // Calendar invite
+// ─── Calendar invite to guest ─────────────────────────────────────────────────
+function sendCalendarInvite(email) {
   const start = new Date('2027-03-13T18:00:00+11:00');
   const end   = new Date('2027-03-14T00:00:00+11:00');
   CalendarApp.getDefaultCalendar().createEvent(
