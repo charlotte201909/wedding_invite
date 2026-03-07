@@ -59,23 +59,48 @@ function isDuplicate(sheet, email) {
   return false;
 }
 
-// ─── Confirmation email to guest ──────────────────────────────────────────────
+// ─── Confirmation email + calendar invite to guest ────────────────────────────
 function sendConfirmation(name, email) {
   const firstName = name.split(' ')[0] || name;
 
   const subject = 'You\u2019re invited \u00B7 Charlotte & Charles \u00B7 13 March 2027';
-  const body =
+
+  const plainBody =
     'Hi ' + firstName + ',\n\n' +
     'We\u2019re so happy you\u2019ll be there!\n\n' +
     'Save the date:\n' +
     'Saturday, 13th March 2027 \u00B7 6pm \u2013 late \u00B7 Sydney, Australia\n\n' +
     'Venue and all the details to follow closer to the date.\n\n' +
     'Can\u2019t wait to celebrate with you.\n\n' +
-    'All our love,\n' +
-    'Charlotte & Charles\n' +
-    '(and Gingie & Meg)';
+    'All our love,\nCharlotte & Charles\n(and Gingie & Meg)';
 
-  GmailApp.sendEmail(email, subject, body, { name: 'Charlotte & Charles' });
+  const htmlBody =
+    '<p>Hi ' + firstName + ', &#x1F970;</p>' +
+    '<p>We\u2019re so happy you\u2019ll be there!</p>' +
+    '<p><strong>Save the date:</strong><br>' +
+    'Saturday, 13th March 2027 &middot; 6pm &ndash; late &middot; Sydney, Australia &#x1F973;</p>' +
+    '<p>Venue and all the details to follow closer to the date.</p>' +
+    '<p>Can\u2019t wait to celebrate with you. &#x1F942;</p>' +
+    '<p>All our love,<br>Charlotte &amp; Charles<br>(and Gingie &amp; Meg &#x1F43E;)</p>';
+
+  GmailApp.sendEmail(email, subject, plainBody, {
+    name: 'Charlotte & Charles',
+    htmlBody: htmlBody
+  });
+
+  // Calendar invite
+  const start = new Date('2027-03-13T18:00:00+11:00');
+  const end   = new Date('2027-03-14T00:00:00+11:00');
+  CalendarApp.getDefaultCalendar().createEvent(
+    'Charlotte & Charles\u2019 Wedding',
+    start, end,
+    {
+      description: 'We can\u2019t wait to celebrate with you! All venue details to follow.',
+      location: 'Sydney, Australia',
+      guests: email,
+      sendInvites: true
+    }
+  );
 }
 
 // ─── Notification to couple ───────────────────────────────────────────────────
