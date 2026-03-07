@@ -48,7 +48,7 @@ function isDuplicate(sheet, email) {
 function sendConfirmation(name, email) {
   const firstName = name.split(' ')[0] || name;
 
-  const subject = 'You\u2019re on the list \uD83E\uDD42 · Charlotte & Charles · 13 March 2027';
+  const subject = 'You\u2019re invited \uD83E\uDD42 · Charlotte & Charles · 13 March 2027';
   const body =
     'Hi ' + firstName + ',\n\n' +
     'We\u2019re so happy you\u2019ll be there!\n\n' +
