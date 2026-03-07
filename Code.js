@@ -63,7 +63,7 @@ function isDuplicate(sheet, email) {
 function sendConfirmation(name, email) {
   const firstName = name.split(' ')[0] || name;
 
-  const subject = 'You\u2019re invited ' + String.fromCodePoint(0x1F942) + ' \u00B7 Charlotte & Charles \u00B7 13 March 2027';
+  const subject = 'You\u2019re invited \u00B7 Charlotte & Charles \u00B7 13 March 2027';
   const body =
     'Hi ' + firstName + ',\n\n' +
     'We\u2019re so happy you\u2019ll be there!\n\n' +
@@ -73,7 +73,7 @@ function sendConfirmation(name, email) {
     'Can\u2019t wait to celebrate with you.\n\n' +
     'All our love,\n' +
     'Charlotte & Charles\n' +
-    '(and Gingie & Meg \uD83D\uDC3E)';
+    '(and Gingie & Meg)';
 
   GmailApp.sendEmail(email, subject, body, { name: 'Charlotte & Charles' });
 }
@@ -84,7 +84,7 @@ function notifyCouple(name, email, mobile, guests, partner, origin, dietary, son
                     guests === 'plus1' ? '+1 (' + (partner || 'name TBC') + ')' :
                     guests === 'group' ? 'a group (' + (partner || 'names TBC') + ')' : guests;
 
-  const subject = String.fromCodePoint(0x1F389) + ' ' + name + ' just saved the date!';
+  const subject = name + ' just saved the date!';
   const body =
     name + ' just signed up.\n\n' +
     'Email:       ' + email + '\n' +
