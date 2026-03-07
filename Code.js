@@ -71,7 +71,7 @@ function sendCalendarInvite(email) {
     'Charlotte & Charles\u2019 Wedding',
     start, end,
     {
-      description: 'We can\u2019t wait to celebrate with you! All venue details to follow.',
+      description: 'We can\u2019t wait to celebrate with you!\n\nWe\u2019ll keep updating this invite with venue details and anything else you need to know \u2014 so keep an eye on it.\n\nIn the meantime, check back at our website:\nhttps://charlotte201909.github.io/wedding_invite/\n\nAll our love,\nCharlotte & Charles (and Gingie & Meg)',
       location: 'Sydney, Australia',
       guests: email,
       sendInvites: true
