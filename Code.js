@@ -22,15 +22,30 @@ function doPost(e) {
   const song         = e.parameter.song         || '';
   const dietaryFull  = dietary + (dietary_note ? ': ' + dietary_note : '');
 
+  Logger.log('doPost received: name=%s email=%s guests=%s', name, email, guests);
+
   // Deduplication — silently succeed if already registered
   if (isDuplicate(sheet, email)) {
+    Logger.log('Duplicate submission for %s — skipping', email);
     return ContentService.createTextOutput('ok');
   }
 
   sheet.appendRow([new Date(), name, email, mobile, guests, partner, origin, dietaryFull, song]);
+  Logger.log('Row appended for %s', email);
 
-  try { sendConfirmation(name, email); } catch(err) {}
-  try { notifyCouple(name, email, mobile, guests, partner, origin, dietaryFull, song); } catch(err) {}
+  try {
+    sendConfirmation(name, email);
+    Logger.log('Confirmation email sent to %s', email);
+  } catch(err) {
+    Logger.log('ERROR sending confirmation to %s: %s', email, err.message);
+  }
+
+  try {
+    notifyCouple(name, email, mobile, guests, partner, origin, dietaryFull, song);
+    Logger.log('Couple notified about %s', name);
+  } catch(err) {
+    Logger.log('ERROR notifying couple: %s', err.message);
+  }
 
   return ContentService.createTextOutput('ok');
 }
