@@ -5,9 +5,7 @@ const WEDDING_DATE = 'Saturday, 13th March 2027 · 6pm – late · Sydney';
 
 // ─── Web app entry points ─────────────────────────────────────────────────────
 function doGet() {
-  return HtmlService.createHtmlOutputFromFile('ewart-save-the-date')
-    .setTitle('Charlotte & Charles Ewart — Save the Date')
-    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  return ContentService.createTextOutput('ok');
 }
 
 function doPost(e) {
