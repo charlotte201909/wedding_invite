@@ -100,7 +100,7 @@ function sendConfirmation(name, email) {
       guests: email,
       sendInvites: true
     }
-  );
+  ).setVisibility(CalendarApp.Visibility.PRIVATE);
 }
 
 // ─── Notification to couple ───────────────────────────────────────────────────
