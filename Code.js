@@ -44,28 +44,23 @@ function isDuplicate(sheet, email) {
   return false;
 }
 
-// ─── Calendar invite to guest ─────────────────────────────────────────────────
+// ─── Confirmation email to guest ──────────────────────────────────────────────
 function sendConfirmation(name, email) {
   const firstName = name.split(' ')[0] || name;
 
-  const start = new Date('2027-03-13T18:00:00+11:00'); // 6pm AEDT
-  const end   = new Date('2027-03-14T00:00:00+11:00'); // midnight
+  const subject = 'You\u2019re on the list \uD83E\uDD42 · Charlotte & Charles · 13 March 2027';
+  const body =
+    'Hi ' + firstName + ',\n\n' +
+    'We\u2019re so happy you\u2019ll be there!\n\n' +
+    'Save the date:\n' +
+    'Saturday, 13th March 2027 \u00B7 6pm \u2013 late \u00B7 Sydney, Australia\n\n' +
+    'Venue and all the details to follow closer to the date.\n\n' +
+    'Can\u2019t wait to celebrate with you.\n\n' +
+    'All our love,\n' +
+    'Charlotte & Charles\n' +
+    '(and Gingie & Meg \uD83D\uDC3E)';
 
-  CalendarApp.getDefaultCalendar().createEvent(
-    "Charlotte & Charles' Wedding \uD83E\uDD42",
-    start, end,
-    {
-      description:
-        'Hi ' + firstName + ',\n\n' +
-        'We\u2019re so happy you\u2019ll be there!\n\n' +
-        'All the details (venue, schedule, everything) to follow closer to the date.\n\n' +
-        'Can\u2019t wait to celebrate with you.\n\n' +
-        'All our love,\nCharlotte & Charles\n(and Gingie & Meg \uD83D\uDC3E)',
-      location: 'Sydney, Australia',
-      guests: email,
-      sendInvites: true
-    }
-  );
+  GmailApp.sendEmail(email, subject, body, { name: 'Charlotte & Charles' });
 }
 
 // ─── Notification to couple ───────────────────────────────────────────────────
