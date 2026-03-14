@@ -68,10 +68,10 @@ function sendCalendarInvite(email) {
   const start = new Date('2027-03-13T18:00:00+11:00');
   const end   = new Date('2027-03-14T00:00:00+11:00');
   CalendarApp.getDefaultCalendar().createEvent(
-    'Charlotte & Charles\u2019 Wedding',
+    'Charlotte and Charles\u2019 Wedding',
     start, end,
     {
-      description: 'We can\u2019t wait to celebrate with you!\n\nWe\u2019ll keep updating this invite with venue details and anything else you need to know \u2014 so keep an eye on it.\n\nIn the meantime, check back at our website:\nhttps://charlotte201909.github.io/wedding_invite/\n\nAll our love,\nCharlotte & Charles (and Gingie & Meg)',
+      description: 'We can\u2019t wait to celebrate with you!\n\nWe\u2019ll keep updating this invite with venue details and anything else you need to know \u2014 so keep an eye on it.\n\nIn the meantime, check back at our website:\nhttps://charles-and-charlotte.love/\n\nAll our love,\nCharlotte and Charles (and Gingie and Meg)',
       location: 'Sydney, Australia',
       guests: email,
       sendInvites: true
@@ -115,7 +115,7 @@ function sendInvites() {
     if (!email) continue;
     const firstName = name.split(' ')[0] || name;
 
-    const subject = 'You\'re invited \uD83E\uDD42 · Charlotte & Charles · 13 March 2027';
+    const subject = 'You\'re invited \uD83E\uDD42 · Charlotte and Charles · 13 March 2027';
     const body =
       'Hi ' + firstName + ',\n\n' +
       'The time has come \u2014 we\'d love for you to join us.\n\n' +
@@ -124,10 +124,10 @@ function sendInvites() {
       'Venue:   ' + VENUE + '\n\n' +
       'Please RSVP at: ' + RSVP_URL + '\n\n' +
       'All our love,\n' +
-      'Charlotte & Charles\n' +
-      '(and Gingie & Meg \uD83D\uDC3E)';
+      'Charlotte and Charles\n' +
+      '(and Gingie and Meg \uD83D\uDC3E)';
 
-    GmailApp.sendEmail(email, subject, body, { name: 'Charlotte & Charles' });
+    GmailApp.sendEmail(email, subject, body, { name: 'Charlotte and Charles' });
     sent++;
     Utilities.sleep(200); // stay within Gmail send limits
   }
