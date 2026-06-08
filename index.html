@@ -155,16 +155,20 @@ body::after{
 .intro{max-width:1300px}
 .intro-grid{display:grid;grid-template-columns:1fr clamp(300px,35%,440px);gap:clamp(36px,5vw,80px);align-items:start}
 .intro-copy{min-width:0}
-/* clean white mat frame (gallery / cut-out look) */
+/* white mat frame, clipped into an arch */
 .intro-board{margin:0;background:#fff;padding:clamp(12px,1.2vw,20px);
+  border-radius:50% 50% 6px 6px / 33% 33% 6px 6px;
   box-shadow:0 30px 70px -46px rgba(31,28,21,.5), 0 8px 22px -14px rgba(31,28,21,.26)}
-.intro-board img{display:block;width:100%;height:auto;box-shadow:0 0 0 1px rgba(31,28,21,.1)}
+.intro-board img{display:block;width:100%;height:auto;
+  border-radius:50% 50% 4px 4px / 31% 31% 4px 4px;
+  box-shadow:0 0 0 1px rgba(31,28,21,.08)}
 @media(max-width:860px){
   .intro-grid{grid-template-columns:1fr;gap:clamp(34px,7vw,52px)}
   .intro-board{max-width:460px}
 }
 .intro .lede{font-size:clamp(1.75rem,4.6vw,4rem);line-height:1.07;font-weight:700;letter-spacing:-.02em}
 .intro .lede em{font-family:'Fraunces',serif;font-style:italic;font-weight:400;color:var(--red)}
+.intro .sub em{font-family:'Fraunces',serif;font-style:italic;color:var(--red)}
 .intro .sub{margin-top:clamp(22px,3vw,38px);max-width:560px;
   font-size:clamp(1rem,1.5vw,1.18rem);line-height:1.75;color:var(--ink-soft)}
 /* sage highlighter for key words */
@@ -300,9 +304,8 @@ body::after{
   <span class="chapter sr">The Invitation</span>
   <div class="intro-grid">
     <div class="intro-copy">
-      <p class="lede sr s2">We're keeping the actual ceremony tiny and private, just the two of us and a couple of witnesses. By the time you see us, we'll already be <em>Mr &amp; Mrs Ewart</em>.</p>
-      <p class="sub sr s3">We're thinking <span class="hl">live music</span>, free-flowing wine and cocktails, lawn games, a BBQ, and eventually a <span class="hl">dance floor</span>. That's the plan, anyway.</p>
-      <p class="sub sr s4">But if the day decides to do its own thing, we're completely fine with that too. As long as we have <span class="hl">you all there</span>, we know it'll be a day we'll remember.</p>
+      <p class="lede sr s2">You're invited to the wedding party — <span class="hl">live music</span>, free-flowing wine and cocktails, lawn games, a BBQ, and eventually a <span class="hl">dance floor</span>. That's the plan, anyway; but if the day decides to do its own thing, we're completely fine with that too. As long as we have <span class="hl">you all there</span>, we know it'll be a day we'll remember.</p>
+      <p class="sub sr s3">The ceremony itself is just the two of us and a couple of witnesses, held quietly elsewhere — by the time you see us, we'll already be <em>Mr &amp; Mrs Ewart</em>.</p>
     </div>
     <figure class="intro-board sr s2">
       <img src="docs/moodboard-final.jpg" loading="lazy" alt="A mood board for the day — garden party, food, dancing and the cats">
