@@ -155,10 +155,10 @@ body::after{
 .intro{max-width:1300px}
 .intro-grid{display:grid;grid-template-columns:1fr clamp(300px,35%,440px);gap:clamp(36px,5vw,80px);align-items:start}
 .intro-copy{min-width:0}
-.intro-board{margin:0;background:#fff;padding:clamp(10px,1vw,15px) clamp(10px,1vw,15px) clamp(20px,2vw,30px);
-  border-radius:4px;transform:rotate(-1.6deg);
-  box-shadow:0 1px 0 rgba(0,0,0,.05), 0 42px 80px -48px rgba(31,28,21,.55), 0 12px 28px -18px rgba(31,28,21,.32)}
-.intro-board img{display:block;width:100%;height:auto;border-radius:2px}
+/* clean white mat frame (gallery / cut-out look) */
+.intro-board{margin:0;background:#fff;padding:clamp(12px,1.2vw,20px);
+  box-shadow:0 30px 70px -46px rgba(31,28,21,.5), 0 8px 22px -14px rgba(31,28,21,.26)}
+.intro-board img{display:block;width:100%;height:auto;box-shadow:0 0 0 1px rgba(31,28,21,.1)}
 @media(max-width:860px){
   .intro-grid{grid-template-columns:1fr;gap:clamp(34px,7vw,52px)}
   .intro-board{max-width:460px}
@@ -297,9 +297,9 @@ body::after{
 
 <!-- ===== THE INVITATION ===== -->
 <section class="section intro" id="story">
+  <span class="chapter sr">The Invitation</span>
   <div class="intro-grid">
     <div class="intro-copy">
-      <span class="chapter sr">The Invitation</span>
       <p class="lede sr s2">We're keeping the actual ceremony tiny and private, just the two of us and a couple of witnesses. By the time you see us, we'll already be <em>Mr &amp; Mrs Ewart</em>.</p>
       <p class="sub sr s3">We're thinking <span class="hl">live music</span>, free-flowing wine and cocktails, lawn games, a BBQ, and eventually a <span class="hl">dance floor</span>. That's the plan, anyway.</p>
       <p class="sub sr s4">But if the day decides to do its own thing, we're completely fine with that too. As long as we have <span class="hl">you all there</span>, we know it'll be a day we'll remember.</p>
