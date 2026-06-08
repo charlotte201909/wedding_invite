@@ -89,7 +89,7 @@ body::after{
 .vh-rsvp:hover{background:#fff;color:var(--sage-deep);opacity:1}
 
 /* name — high in the sky */
-.vh-top{position:absolute;z-index:5;left:0;right:0;top:clamp(130px,16%,215px);text-align:center;padding:0 2.5vw}
+.vh-top{position:absolute;z-index:5;left:0;right:0;top:clamp(112px,14%,195px);text-align:center;padding:0 2.5vw}
 .vh-names{
   font-weight:800;font-size:clamp(1.6rem,7.6vw,8.4rem);line-height:.88;
   letter-spacing:-.04em;text-transform:uppercase;white-space:nowrap;
@@ -103,7 +103,7 @@ body::after{
   padding:0 clamp(22px,4.5vw,56px);
 }
 .vh-foot .lbl{display:block;font-size:11px;letter-spacing:.26em;text-transform:uppercase;
-  color:#fff;font-weight:600;margin-bottom:9px;text-shadow:0 1px 3px rgba(15,18,10,.85),0 2px 16px rgba(15,18,10,.5)}
+  color:#AEC178;font-weight:700;margin-bottom:9px;text-shadow:0 1px 3px rgba(12,15,8,.95),0 2px 16px rgba(12,15,8,.6)}
 .vh-foot .val{display:block;font-weight:700;font-size:clamp(1.4rem,3vw,2.4rem);line-height:1;
   letter-spacing:-.01em;color:#fff;text-shadow:0 3px 20px rgba(20,24,12,.55)}
 .vh-foot .sub{display:block;margin-top:9px;font-size:clamp(11px,1.1vw,13px);letter-spacing:.16em;
@@ -119,7 +119,7 @@ body::after{
 
 @media(max-width:640px){
   .vh-links a:not(.vh-rsvp){display:none}
-  .vh-top{top:56px;padding:0 3.5vw}
+  .vh-top{top:67px;padding:0 3.5vw}
   /* width-based for boldness, height-capped so it never reaches the faces on short screens */
   .vh-names{white-space:normal;font-size:clamp(1.8rem, min(14.5vw, 10svh), 6rem);line-height:.9;letter-spacing:-.03em}
   .vh-names span{display:block}
@@ -168,7 +168,7 @@ body::after{
 /* details */
 .detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(26px,3.4vw,52px)}
 .detail .dl{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:16px}
-.detail .dv{font-size:clamp(1.5rem,3vw,2.3rem);font-weight:700;line-height:1.05;letter-spacing:-.01em}
+.detail .dv{font-size:clamp(1.4rem,2.7vw,2rem);font-weight:700;line-height:1.1;letter-spacing:-.01em}
 .detail .dn{margin-top:12px;font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:1.05rem}
 
 /* moments / gallery marquee */
@@ -182,7 +182,7 @@ body::after{
 @keyframes mqx{to{transform:translateX(-50%)}}
 
 /* timeline / run of day */
-.timeline{list-style:none}
+.timeline{list-style:none;margin-top:clamp(28px,3.4vw,48px)}
 .tl{display:grid;grid-template-columns:clamp(118px,18vw,210px) 1fr;gap:clamp(16px,3vw,44px);
   align-items:baseline;padding:clamp(16px,2.2vw,26px) 0}
 .tl:first-child{padding-top:0}
@@ -299,46 +299,44 @@ body::after{
   <div class="panel detail-grid sr">
     <div class="detail">
       <div class="dl">When</div>
-      <div class="dv">Sat 13 March<br>2027</div>
+      <div class="dv">Sat 13 March 2027</div>
       <div class="dn">from 2pm till late</div>
     </div>
     <div class="detail">
       <div class="dl">Where</div>
-      <div class="dv">The Riverside<br>House</div>
-      <div class="dn">Burradoo, NSW · 90 min south of Sydney</div>
+      <div class="dv">The Riverside House</div>
+      <div class="dn">86 Moss Vale Road, Burradoo NSW 2576</div>
     </div>
     <div class="detail">
       <div class="dl">Dress</div>
       <div class="dv">Garden party</div>
-      <div class="dn">frocks that can handle a lawn</div>
     </div>
   </div>
 
-  <span class="chapter day-sub sr s2" id="plan">How the Day Unfolds</span>
-  <ol class="panel timeline">
+  <ol class="panel timeline" id="plan">
     <li class="tl sr">
       <span class="tl-time">2 PM</span>
       <div class="tl-body">
         <h4>We'll be there to meet you</h4>
-        <p>Come any time from 2pm. We'll be out on the lawn to say hello, with a drink ready and live acoustic playing.</p>
+        <p>Get here around 2pm. We'll be out on the lawn to say hello, with a drink ready and live acoustic playing.</p>
       </div>
     </li>
     <li class="tl sr s2">
-      <span class="tl-time">Afternoon</span>
+      <span class="tl-time">3:30 PM</span>
       <div class="tl-body">
         <h4>Lawn games</h4>
         <p>Organised, lightly competitive, and taken far too seriously. You have been warned.</p>
       </div>
     </li>
     <li class="tl sr s3">
-      <span class="tl-time">Evening</span>
+      <span class="tl-time">6 PM</span>
       <div class="tl-body">
         <h4>Spit roast dinner</h4>
         <p>A proper BBQ feast as the sun drops behind the Highlands.</p>
       </div>
     </li>
     <li class="tl sr s4">
-      <span class="tl-time">After dark</span>
+      <span class="tl-time">8:30 PM</span>
       <div class="tl-body">
         <h4>Dancefloor, then DJ till late</h4>
         <p>It opens with a surprise — we're not telling you what. Then the DJ runs it all night.</p>
