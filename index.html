@@ -155,13 +155,12 @@ body::after{
 .intro{max-width:1300px}
 .intro-grid{display:grid;grid-template-columns:1fr clamp(300px,35%,440px);gap:clamp(36px,5vw,80px);align-items:start}
 .intro-copy{min-width:0}
-/* white mat frame, clipped into an arch */
-.intro-board{margin:0;background:#fff;padding:clamp(12px,1.2vw,20px);
-  border-radius:50% 50% 6px 6px / 33% 33% 6px 6px;
-  box-shadow:0 30px 70px -46px rgba(31,28,21,.5), 0 8px 22px -14px rgba(31,28,21,.26)}
-.intro-board img{display:block;width:100%;height:auto;
-  border-radius:50% 50% 4px 4px / 31% 31% 4px 4px;
-  box-shadow:0 0 0 1px rgba(31,28,21,.08)}
+/* thin hand-drawn (doodle) frame */
+.intro-board{margin:0;background:#fff;padding:7px;overflow:hidden;
+  border:1.5px solid #2C3319;
+  border-radius:255px 14px 225px 14px/14px 225px 14px 255px;
+  box-shadow:0 22px 50px -38px rgba(31,28,21,.42)}
+.intro-board img{display:block;width:100%;height:auto}
 @media(max-width:860px){
   .intro-grid{grid-template-columns:1fr;gap:clamp(34px,7vw,52px)}
   .intro-board{max-width:460px}
@@ -169,6 +168,8 @@ body::after{
 .intro .lede{font-size:clamp(1.75rem,4.6vw,4rem);line-height:1.07;font-weight:700;letter-spacing:-.02em}
 .intro .lede em{font-family:'Fraunces',serif;font-style:italic;font-weight:400;color:var(--red)}
 .intro .sub em{font-family:'Fraunces',serif;font-style:italic;color:var(--red)}
+.ewart{display:block;margin-top:.35em;font-family:'Fraunces',serif;font-style:italic;
+  font-size:clamp(2.1rem,4.6vw,3.6rem);line-height:1.02;letter-spacing:-.01em;color:var(--red)}
 .intro .sub{margin-top:clamp(22px,3vw,38px);max-width:560px;
   font-size:clamp(1rem,1.5vw,1.18rem);line-height:1.75;color:var(--ink-soft)}
 /* sage highlighter for key words */
@@ -304,9 +305,9 @@ body::after{
   <span class="chapter sr">The Invitation</span>
   <div class="intro-grid">
     <div class="intro-copy">
-      <p class="lede sr s2">You're invited to the party. Expect <span class="hl">live music</span>, free-flowing drinks, lawn games, a BBQ and a <span class="hl">dance floor</span>.</p>
-      <p class="sub sr s3">That's the plan, anyway. If the day decides to take on a different direction, we're chilled about that too. As long as we have you there, it'll be a day to remember.</p>
-      <p class="sub sr s4">We're keeping the actual ceremony tiny and private, just the two of us and a couple of witnesses. By the time you see us, it'll be done and we'll already be <em>Mr &amp; Mrs Ewart</em>.</p>
+      <p class="lede sr s2">You're invited to the party. Expect live music, free-flowing drinks, lawn games, BBQ and a dance floor.</p>
+      <p class="sub sr s3">That's the plan, anyway. If the day decides to take on a different direction, we're chilled about that too. As long as we have <span class="hl">you there</span>, it'll be a day to remember.</p>
+      <p class="sub sr s4">We're keeping the actual ceremony tiny and private, just the two of us and a couple of witnesses. By the time you see us, it'll be done and we'll already be <span class="ewart">Mr &amp; Mrs Ewart</span></p>
     </div>
     <figure class="intro-board sr s2">
       <img src="docs/moodboard-final.jpg" loading="lazy" alt="A mood board for the day — garden party, food, dancing and the cats">
