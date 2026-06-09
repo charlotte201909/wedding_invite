@@ -121,7 +121,7 @@ body::after{
   .vh-links a:not(.vh-rsvp){display:none}
   .vh-top{top:clamp(104px,15vh,170px);padding:0 3.5vw}
   /* width-based for boldness, height-capped so it never reaches the faces on short screens */
-  .vh-names{white-space:normal;font-size:clamp(1.8rem, min(14.5vw, 10svh), 6rem);line-height:.9;letter-spacing:-.03em}
+  .vh-names{white-space:normal;font-size:clamp(2rem, min(16.5vw, 11.5svh), 6.6rem);line-height:.9;letter-spacing:-.03em}
   .vh-names span{display:block}
   .vh-foot{flex-direction:column;align-items:flex-start;text-align:left;gap:16px;padding:0 clamp(22px,6vw,40px)}
   .vh-foot .lbl{font-size:12.5px}
@@ -189,8 +189,8 @@ body::after{
 .detail a.dv:hover{color:var(--red)}
 .detail a.dv .ext{font-size:.7em;vertical-align:.15em;opacity:.7;margin-left:.15em}
 .detail .dn{margin-top:clamp(6px,1vw,12px);font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:clamp(.72rem,1.5vw,1.05rem);line-height:1.3}
-#details .chapter{margin-bottom:clamp(16px,2vw,26px)}
-#details{padding-top:clamp(34px,5vw,66px);padding-bottom:clamp(34px,5vw,66px)}
+#details .chapter{margin-bottom:clamp(14px,1.8vw,22px);font-size:15.5px}
+#details{padding-top:clamp(28px,4vw,52px);padding-bottom:clamp(20px,2.6vw,38px)}
 
 /* moments / gallery marquee */
 .moments{padding-left:0;padding-right:0;overflow:hidden}
@@ -203,7 +203,7 @@ body::after{
 @keyframes mqx{to{transform:translateX(-50%)}}
 
 /* timeline / run of day */
-.timeline{list-style:none;margin-top:clamp(14px,1.8vw,24px)}
+.timeline{list-style:none;margin-top:clamp(10px,1.4vw,16px);padding:clamp(20px,2.6vw,34px) clamp(22px,3vw,46px)}
 .tl{display:grid;grid-template-columns:clamp(118px,18vw,210px) 1fr;gap:clamp(16px,3vw,44px);
   align-items:baseline;padding:clamp(10px,1.4vw,16px) 0}
 .tl:first-child{padding-top:0}
@@ -232,7 +232,7 @@ body::after{
 
 /* cta */
 /* rsvp invitation card */
-.rsvp-sec{display:flex;justify-content:center}
+.rsvp-sec{display:flex;justify-content:center;padding-top:clamp(20px,3vw,44px)}
 .rsvp-card{position:relative;overflow:hidden;width:min(700px,100%);text-align:center;isolation:isolate;
   background:radial-gradient(130% 150% at 50% -10%, #313920 0%, #232a14 52%, #181d0e 100%);
   color:var(--paper);border-radius:clamp(18px,2.4vw,30px);
