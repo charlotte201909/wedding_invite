@@ -179,10 +179,18 @@ body::after{
 
 
 /* details */
-.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(26px,3.4vw,52px)}
-.detail .dl{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:16px}
-.detail .dv{font-size:clamp(1.4rem,2.7vw,2rem);font-weight:700;line-height:1.1;letter-spacing:-.01em}
-.detail .dn{margin-top:12px;font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:1.05rem}
+.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;align-items:start;padding:clamp(22px,2.8vw,38px) clamp(18px,2.4vw,40px)}
+.detail{text-align:center;padding:0 clamp(10px,2.2vw,40px)}
+.detail+.detail{border-left:1px solid var(--line)}
+.detail .di{width:clamp(22px,2.8vw,30px);height:clamp(22px,2.8vw,30px);margin:0 auto clamp(8px,1.2vw,14px);color:var(--red);display:block}
+.detail .dl{font-size:clamp(9px,1.3vw,12px);letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:clamp(6px,1vw,12px)}
+.detail .dv{font-size:clamp(.95rem,2.4vw,2rem);font-weight:700;line-height:1.12;letter-spacing:-.01em}
+.detail a.dv{color:inherit;text-decoration:none;border-bottom:1.5px solid var(--red);padding-bottom:1px;transition:color .2s}
+.detail a.dv:hover{color:var(--red)}
+.detail a.dv .ext{font-size:.7em;vertical-align:.15em;opacity:.7;margin-left:.15em}
+.detail .dn{margin-top:clamp(6px,1vw,12px);font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:clamp(.72rem,1.5vw,1.05rem);line-height:1.3}
+#details .chapter{margin-bottom:clamp(16px,2vw,26px)}
+#details{padding-top:clamp(34px,5vw,66px);padding-bottom:clamp(34px,5vw,66px)}
 
 /* moments / gallery marquee */
 .moments{padding-left:0;padding-right:0;overflow:hidden}
@@ -195,9 +203,9 @@ body::after{
 @keyframes mqx{to{transform:translateX(-50%)}}
 
 /* timeline / run of day */
-.timeline{list-style:none;margin-top:clamp(28px,3.4vw,48px)}
+.timeline{list-style:none;margin-top:clamp(14px,1.8vw,24px)}
 .tl{display:grid;grid-template-columns:clamp(118px,18vw,210px) 1fr;gap:clamp(16px,3vw,44px);
-  align-items:baseline;padding:clamp(16px,2.2vw,26px) 0}
+  align-items:baseline;padding:clamp(10px,1.4vw,16px) 0}
 .tl:first-child{padding-top:0}
 .tl:last-child{padding-bottom:0}
 .tl-time{font-weight:800;font-size:clamp(1.3rem,2.6vw,2.1rem);letter-spacing:-.01em;color:var(--red)}
@@ -209,33 +217,51 @@ body::after{
 .ps-section{position:relative;z-index:10;text-align:center;
   padding:clamp(24px,3vw,44px) var(--pad) clamp(40px,5vw,72px)}
 .ps{max-width:640px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:clamp(20px,3vw,30px)}
-.ps-cats{display:flex;gap:18px}
-.ps-cats img{width:clamp(98px,13vw,142px);height:clamp(98px,13vw,142px);object-fit:cover;
-  border-radius:14px;border:1px solid var(--line);background:#fff;
-  box-shadow:0 22px 42px -28px rgba(31,28,21,.5)}
-.ps-cats img:first-child{transform:rotate(-3deg)}
-.ps-cats img:last-child{transform:rotate(3deg)}
+.ps-cats{display:flex;align-items:flex-end;justify-content:center;gap:clamp(2px,1vw,14px)}
+.ps-cats img{height:clamp(112px,15vw,168px);width:auto;
+  filter:
+    drop-shadow(1.5px 0 0 #fff) drop-shadow(-1.5px 0 0 #fff)
+    drop-shadow(0 1.5px 0 #fff) drop-shadow(0 -1.5px 0 #fff)
+    drop-shadow(1.1px 1.1px 0 #fff) drop-shadow(-1.1px 1.1px 0 #fff)
+    drop-shadow(1.1px -1.1px 0 #fff) drop-shadow(-1.1px -1.1px 0 #fff)
+    drop-shadow(0 14px 16px rgba(31,28,21,.26))}
+.ps-cats img:last-child{margin-left:clamp(-14px,-1.6vw,-22px)}
 .ps-text{font-family:'Fraunces',serif;font-style:italic;
   font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.45;color:var(--ink)}
 .ps-text em{color:var(--red)}
 
 /* cta */
-.cta{text-align:center}
-.cta .big{font-weight:800;font-size:clamp(2.8rem,12.5vw,10.5rem);line-height:.86;letter-spacing:-.035em;
-  color:transparent;-webkit-text-stroke:1.5px var(--ink)}
-.cta .big b{color:var(--red);-webkit-text-stroke:0;font-weight:800}
-.cta .ctd{margin-top:clamp(20px,3vw,34px);font-size:clamp(1rem,1.6vw,1.3rem);letter-spacing:.16em;text-transform:uppercase;font-weight:600}
-.cta .ctn{margin-top:14px;font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:1.12rem;max-width:480px;margin-left:auto;margin-right:auto}
-.cta-actions{margin-top:clamp(30px,4vw,46px);display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+/* rsvp invitation card */
+.rsvp-sec{display:flex;justify-content:center}
+.rsvp-card{position:relative;overflow:hidden;width:min(700px,100%);text-align:center;isolation:isolate;
+  background:radial-gradient(130% 150% at 50% -10%, #313920 0%, #232a14 52%, #181d0e 100%);
+  color:var(--paper);border-radius:clamp(18px,2.4vw,30px);
+  padding:clamp(44px,6.4vw,84px) clamp(26px,5vw,72px);
+  box-shadow:0 46px 92px -54px rgba(0,0,0,.72)}
+.rsvp-card::before{content:"";position:absolute;inset:clamp(11px,1.5vw,18px);
+  border:1px solid rgba(184,145,80,.45);border-radius:clamp(10px,1.6vw,20px);pointer-events:none;z-index:2}
+.rsvp-card::after{content:"囍";position:absolute;right:-.08em;bottom:-.26em;z-index:0;
+  font-family:'Fraunces',serif;font-size:clamp(180px,34vw,360px);line-height:1;
+  color:rgba(184,145,80,.07);pointer-events:none}
+.rsvp-card>*{position:relative;z-index:1}
+.rsvp-over{display:block;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.rsvp-xi{margin:clamp(14px,2vw,22px) 0 clamp(4px,.8vw,8px);font-family:'Fraunces',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);color:var(--gold);line-height:1}
+.rsvp-head{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(2.3rem,6vw,4.2rem);line-height:1.02;letter-spacing:-.005em}
+.rsvp-head em{font-style:italic;color:var(--gold)}
+.rsvp-meta{margin-top:clamp(16px,2.4vw,26px);font-size:clamp(.82rem,1.3vw,1rem);letter-spacing:.14em;text-transform:uppercase;color:rgba(244,238,227,.78)}
+.rsvp-rule{width:52px;height:1px;background:rgba(184,145,80,.6);margin:clamp(20px,3vw,30px) auto}
+.rsvp-by{font-family:'Fraunces',serif;font-style:italic;color:rgba(244,238,227,.8);font-size:clamp(1rem,1.6vw,1.2rem)}
+.rsvp-by b{color:var(--paper);font-weight:500;font-style:normal}
+.cta-actions{margin-top:clamp(24px,3.4vw,40px);display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 
-/* buttons (cta) */
+/* buttons */
 .btn{text-decoration:none;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;
-  padding:14px 26px;border-radius:40px;display:inline-flex;align-items:center;gap:9px;
+  padding:14px 28px;border-radius:40px;display:inline-flex;align-items:center;gap:9px;
   transition:transform .25s,background .25s,color .25s;cursor:pointer}
-.btn-solid{background:var(--red);color:#fff}
-.btn-solid:hover{background:var(--red-deep);transform:translateY(-3px)}
-.btn-ghost{border:1px solid var(--ink);color:var(--ink)}
-.btn-ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-3px)}
+.btn-solid{background:var(--gold);color:#20260f}
+.btn-solid:hover{background:#cda75f;transform:translateY(-3px)}
+.btn-ghost{border:1px solid rgba(244,238,227,.45);color:var(--paper)}
+.btn-ghost:hover{background:var(--paper);color:var(--sage-deep);transform:translateY(-3px)}
 
 /* footer */
 .foot{background:var(--ink);color:var(--paper);
@@ -246,7 +272,6 @@ body::after{
 .foot .fmeta{font-family:'Fraunces',serif;font-style:italic;color:rgba(244,238,227,.6);font-size:.95rem}
 
 @media(max-width:860px){
-  .detail-grid{grid-template-columns:1fr}
   .tl{grid-template-columns:1fr;gap:4px}
   .tl-time{color:var(--red)}
   .foot{justify-content:center;text-align:center}
@@ -265,7 +290,7 @@ body::after{
 <section class="vh-hero">
   <picture>
     <!-- phones: portrait shot with both faces together -->
-    <source media="(max-width:640px)" srcset="docs/new%20hero%20photo%20mobile.jpg">
+    <source media="(max-width:640px)" srcset="docs/new%20hero%20photo%20mobile%20v2.jpg">
     <!-- larger screens: the wide rooftop skyline -->
     <img class="vh-photo" src="docs/New%20hero%20photo.jpg" alt="Charlotte and Charles">
   </picture>
@@ -304,7 +329,7 @@ body::after{
   <div class="intro-grid">
     <div class="intro-copy">
       <p class="lede sr s2">You're invited to the party. Expect live music, free-flowing drinks, lawn games, BBQ and a dance floor.</p>
-      <p class="sub sr s3">That's the plan, anyway. If the day decides to take on a different direction, we're chilled about that too. As long as we have <span class="hl">you there</span>, it'll be a day to remember.</p>
+      <p class="sub sr s3">That's the plan, anyway. If the day decides to take on a different direction, we're chilled about that too. <span class="hl">As long as we have you there, it'll be a day to remember.</span></p>
       <p class="sub sr s4">We're keeping the actual ceremony tiny and private, just the two of us and a couple of witnesses. By the time you see us, we'll already be <span class="ewart">Mr &amp; Mrs Ewart</span></p>
     </div>
     <figure class="intro-board sr s2">
@@ -318,16 +343,19 @@ body::after{
   <span class="chapter sr">The Day</span>
   <div class="panel detail-grid sr">
     <div class="detail">
+      <svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>
       <div class="dl">When</div>
-      <div class="dv">Sat 13 March 2027</div>
+      <div class="dv">Sat, 13 Mar 27</div>
       <div class="dn">from 2pm till late</div>
     </div>
     <div class="detail">
+      <svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
       <div class="dl">Where</div>
-      <div class="dv">The Riverside House</div>
+      <a class="dv" href="https://www.google.com/maps/search/?api=1&amp;query=The+Riverside+House+86+Moss+Vale+Road+Burradoo+NSW+2576" target="_blank" rel="noopener">The Riverside House<span class="ext">↗</span></a>
       <div class="dn">86 Moss Vale Road, Burradoo NSW 2576</div>
     </div>
     <div class="detail">
+      <svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.5a2 2 0 1 0-1.4 1.9L4 11v2h16v-2l-6.6-4.6A2 2 0 0 0 12 4.5z"/><path d="M4 13l-1 6h18l-1-6"/></svg>
       <div class="dl">Dress</div>
       <div class="dv">Garden party</div>
       <div class="dn">Bring swimmers if you fancy the hot tub &amp; sauna</div>
@@ -366,14 +394,19 @@ body::after{
   </ol>
 </section>
 
-<!-- ===== COME CELEBRATE ===== -->
-<section class="section cta" id="rsvp">
-  <div class="big sr s2">Come<br><b>celebrate</b></div>
-  <p class="ctd sr s3">13 March 2027 · The Riverside House, Burradoo</p>
-  <p class="ctn sr s3">That's the whole ask: turn up, stay late, dance badly. We'll send the finer details (getting there, where to stay) closer to the day.</p>
-  <div class="cta-actions sr s4">
-    <a class="btn btn-solid" href="#">RSVP</a>
-    <a class="btn btn-ghost" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Charlotte%20%26%20Charles%20Wedding&dates=20270313T030000Z/20270313T120000Z&details=An%20all-day%20backyard%20celebration%20for%20Charlotte%20%26%20Charles.%20The%20ceremony%20is%20private%3B%20this%20is%20the%20party.&location=The%20Riverside%20House%2C%20Burradoo%20NSW" target="_blank" rel="noopener">Add to Calendar</a>
+<!-- ===== RSVP ===== -->
+<section class="section rsvp-sec" id="rsvp">
+  <div class="rsvp-card sr">
+    <span class="rsvp-over">And finally</span>
+    <div class="rsvp-xi">囍</div>
+    <h2 class="rsvp-head">Will you <em>celebrate</em><br>with us?</h2>
+    <p class="rsvp-meta">Sat 13 March 2027 · The Riverside House, Burradoo</p>
+    <div class="rsvp-rule"></div>
+    <p class="rsvp-by">Kindly reply by <b>31 January 2027</b></p>
+    <div class="cta-actions">
+      <a class="btn btn-solid" href="#">RSVP</a>
+      <a class="btn btn-ghost" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Charlotte%20%26%20Charles%20Wedding&dates=20270313T030000Z/20270313T120000Z&details=An%20all-day%20backyard%20celebration%20for%20Charlotte%20%26%20Charles.%20The%20ceremony%20is%20private%3B%20this%20is%20the%20party.&location=The%20Riverside%20House%2C%20Burradoo%20NSW" target="_blank" rel="noopener">Add to Calendar</a>
+    </div>
   </div>
 </section>
 
@@ -381,10 +414,10 @@ body::after{
 <section class="ps-section">
   <div class="ps sr">
     <div class="ps-cats">
-      <img src="docs/Gingie_faq.png" alt="Gingie the ginger cat in a tuxedo">
-      <img src="docs/Meg_faq.png" alt="Meg the black cat in a dress">
+      <img src="docs/Gingie_cutout.png" alt="Gingie the ginger cat in a tuxedo">
+      <img src="docs/Meg_cutout.png" alt="Meg the black cat in a dress">
     </div>
-    <p class="ps-text">P.S. — Gingie and Meg are <em>not</em> invited. They got dressed up anyway, and they're taking it about as well as you'd expect.</p>
+    <p class="ps-text">P.S. — Gingie and Meg <em>can't make it</em> (someone has to guard the house).</p>
   </div>
 </section>
 
