@@ -124,6 +124,8 @@ body::after{
 
 @media(max-width:640px){
   .vh-links a:not(.vh-rsvp){display:none}
+  #details{min-height:100svh;display:flex;align-items:center}
+  #details .day-wrap{width:100%}
   #details .chapter{font-size:18px}
   #details .di{width:25px;height:25px;margin-bottom:9px}
   #details .dl{font-size:11px}
@@ -192,6 +194,7 @@ body::after{
 
 
 /* details */
+.day-wrap{max-width:1080px;margin:0 auto}
 .detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;align-items:start;padding:clamp(16px,2vw,26px) clamp(14px,2vw,32px)}
 .detail{text-align:center;padding:0 clamp(8px,1.8vw,32px)}
 .detail+.detail{border-left:1px solid var(--line)}
@@ -224,7 +227,7 @@ body::after{
 .tl-time{font-weight:800;font-size:clamp(1rem,1.5vw,1.25rem);letter-spacing:-.01em;color:var(--red)}
 .tl-body h4{font-weight:700;font-size:clamp(1.05rem,1.5vw,1.22rem);letter-spacing:-.01em;line-height:1.12}
 .tl-body p{margin-top:6px;color:var(--ink-soft);font-family:'Fraunces',serif;font-style:italic;
-  font-size:clamp(.9rem,1.1vw,1rem);line-height:1.45;max-width:520px}
+  font-size:clamp(.9rem,1.1vw,1rem);line-height:1.45;max-width:720px}
 
 /* P.S. — the cats */
 .ps-section{position:relative;z-index:10;text-align:center;
@@ -353,6 +356,7 @@ body::after{
 
 <!-- ===== THE DAY ===== -->
 <section class="section details" id="details">
+  <div class="day-wrap">
   <span class="chapter sr">The Day</span>
   <div class="panel detail-grid sr">
     <div class="detail">
@@ -405,6 +409,7 @@ body::after{
       </div>
     </li>
   </ol>
+  </div>
 </section>
 
 <!-- ===== RSVP ===== -->
