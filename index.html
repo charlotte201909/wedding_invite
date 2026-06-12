@@ -511,37 +511,52 @@ body::after{
   document.querySelectorAll('.sr').forEach(el=>io.observe(el));
 
   /* ── RSVP form → Google Apps Script ───────────────────────── */
-  // ⚠️ Confirm this is your CURRENT web-app deployment URL
-  // (Apps Script → Deploy → Manage deployments → Web app → copy the /exec URL)
-  const GAS_URL = 'https://script.google.com/macros/s/AKfycbyBDq-sqFWYi5w_XHUYUPAmLJrMG6-XegN1ocAEERZIOZh9Z3stAYxujJP12VEo9KKVUw/exec';
+  (function () {
+    var GAS_URL = 'https://script.google.com/macros/s/AKfycbyBDq-sqFWYi5w_XHUYUPAmLJrMG6-XegN1ocAEERZIOZh9Z3stAYxujJP12VEo9KKVUw/exec';
 
-  const rsvpOpen = document.getElementById('rsvpOpen');
-  if (rsvpOpen) rsvpOpen.addEventListener('click', () => {
-    document.getElementById('rsvpCta').style.display = 'none';
-    const f = document.getElementById('signupForm');
-    f.classList.add('show');
-    setTimeout(() => document.getElementById('rsvp-name').focus(), 400);
-  });
+    var openBtn = document.getElementById('rsvpOpen');
+    var cta     = document.getElementById('rsvpCta');
+    var form    = document.getElementById('signupForm');
+    if (!form) return;
 
-  const form = document.getElementById('signupForm');
-  if (form) form.addEventListener('submit', async function(e){
-    e.preventDefault();
-    if (!this.checkValidity()) { this.reportValidity(); return; }
-    const btn = this.querySelector('.rsvp-submit');
-    btn.innerHTML = '<span class="spin" aria-hidden="true"></span>Sending…'; btn.disabled = true;
-    const get = n => { const el = this.querySelector('[name='+n+']'); return el ? el.value : ''; };
-    const params = new URLSearchParams({
-      name: get('name'), email: get('email'), mobile: get('mobile'),
-      dietary: get('dietary'), song: get('song')
+    // Reveal the form when RSVP is clicked
+    if (openBtn) openBtn.addEventListener('click', function () {
+      if (cta) cta.style.display = 'none';
+      form.classList.add('show');
+      setTimeout(function () {
+        var n = document.getElementById('rsvp-name');
+        if (n) n.focus();
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 350);
     });
-    // form-encoded body + no custom headers = no CORS preflight; no-cors = fire-and-forget
-    try { await fetch(GAS_URL, { method: 'POST', body: params, mode: 'no-cors' }); }
-    catch (err) { /* opaque response is expected; the Sheet + email are source of truth */ }
-    this.querySelector('.rsvp-fields').style.display = 'none';
-    btn.style.display = 'none';
-    this.querySelector('.form-note').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
-  });
+
+    // Submit
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+
+      var btn = form.querySelector('.rsvp-submit');
+      if (btn) { btn.innerHTML = '<span class="spin" aria-hidden="true"></span>Sending…'; btn.disabled = true; }
+
+      var val = function (n) { var el = form.querySelector('[name="' + n + '"]'); return el ? el.value : ''; };
+      var body = new URLSearchParams({
+        name: val('name'), email: val('email'), mobile: val('mobile'),
+        dietary: val('dietary'), song: val('song')
+      });
+
+      var done = function () {
+        var fields = form.querySelector('.rsvp-fields'); if (fields) fields.style.display = 'none';
+        if (btn) btn.style.display = 'none';
+        var note = form.querySelector('.form-note'); if (note) note.style.display = 'none';
+        var ok = document.getElementById('formSuccess');
+        if (ok) { ok.classList.add('show'); ok.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      };
+
+      // form-encoded + no custom headers = no CORS preflight; no-cors = fire-and-forget
+      fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: body })
+        .then(done, done);
+    });
+  })();
 </script>
 
 </body>
