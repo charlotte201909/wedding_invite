@@ -276,7 +276,10 @@ body::after{
 /* buttons */
 .btn{text-decoration:none;font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;
   padding:14px 28px;border-radius:40px;display:inline-flex;align-items:center;gap:9px;
-  transition:transform .25s,background .25s,color .25s;cursor:pointer}
+  transition:transform .25s,background .25s,color .25s;cursor:pointer;
+  border:none;font-family:inherit;appearance:none;-webkit-appearance:none;-webkit-tap-highlight-color:transparent}
+.btn:focus{outline:none}
+.btn:focus-visible{outline:2px solid rgba(244,238,227,.65);outline-offset:3px}
 .btn-solid{background:var(--gold);color:#20260f}
 .btn-solid:hover{background:#cda75f;transform:translateY(-3px)}
 .btn-ghost{border:1px solid rgba(244,238,227,.45);color:var(--paper)}
