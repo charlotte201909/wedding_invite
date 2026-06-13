@@ -195,8 +195,8 @@ body::after{
 
 
 /* details */
-.day-wrap{max-width:1080px;margin:0 auto}
-.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;align-items:start;padding:clamp(16px,2vw,26px) clamp(14px,2vw,32px)}
+.day-wrap{max-width:1240px;margin:0 auto}
+.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;align-items:start;padding:clamp(22px,2.8vw,38px) clamp(18px,2.4vw,44px)}
 .detail{text-align:center;padding:0 clamp(8px,1.8vw,32px)}
 .detail+.detail{border-left:1px solid var(--line)}
 .detail .di{width:clamp(20px,2.4vw,26px);height:clamp(20px,2.4vw,26px);margin:0 auto clamp(5px,0.9vw,9px);color:var(--red);display:block}
@@ -220,9 +220,9 @@ body::after{
 @keyframes mqx{to{transform:translateX(-50%)}}
 
 /* timeline / run of day */
-.timeline{list-style:none;margin-top:clamp(8px,1vw,12px);padding:clamp(16px,2vw,24px) clamp(20px,2.6vw,34px)}
-.tl{display:grid;grid-template-columns:clamp(108px,14vw,165px) 1fr;gap:clamp(14px,2.4vw,30px);
-  align-items:baseline;padding:clamp(8px,1vw,11px) 0}
+.timeline{list-style:none;margin-top:clamp(12px,1.6vw,20px);padding:clamp(22px,2.6vw,36px) clamp(24px,3vw,48px)}
+.tl{display:grid;grid-template-columns:clamp(120px,15vw,190px) 1fr;gap:clamp(18px,2.8vw,40px);
+  align-items:baseline;padding:clamp(12px,1.5vw,17px) 0}
 .tl:first-child{padding-top:0}
 .tl:last-child{padding-bottom:0}
 .tl-time{font-weight:800;font-size:clamp(1rem,1.5vw,1.25rem);letter-spacing:-.01em;color:var(--red)}
@@ -285,38 +285,11 @@ body::after{
 .btn-ghost{border:1px solid rgba(244,238,227,.45);color:var(--paper)}
 .btn-ghost:hover{background:var(--paper);color:var(--sage-deep);transform:translateY(-3px)}
 
-/* rsvp form (revealed inside the dark card) */
-.rsvp-form{max-width:580px;margin:0 auto;overflow:hidden;max-height:0;opacity:0;
-  transition:max-height .55s ease,opacity .45s ease,margin-top .45s ease}
-.rsvp-form.show{max-height:1400px;opacity:1;margin-top:clamp(22px,3vw,32px)}
-.rsvp-fields{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.8vw,18px);text-align:left}
-.rsvp-field{display:flex;flex-direction:column;gap:6px;min-width:0}
-.rsvp-field.full{grid-column:1 / -1}
-.rsvp-field label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,238,227,.74);font-weight:600}
-.rsvp-field label .opt{text-transform:none;letter-spacing:0;color:rgba(244,238,227,.45);font-weight:400}
-.rsvp-field input,.rsvp-field select{font-family:inherit;font-size:1rem;color:var(--paper);width:100%;
-  background:rgba(255,255,255,.05);border:1px solid rgba(244,238,227,.22);border-radius:10px;
-  padding:11px 13px;transition:border-color .2s,background .2s}
-.rsvp-field input::placeholder{color:rgba(244,238,227,.4)}
-.rsvp-field input:focus,.rsvp-field select:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.09)}
-.rsvp-field select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:34px;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23E8E0D0' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 13px center}
-.rsvp-field select option{color:#1f1c15}
-.rsvp-submit{margin-top:clamp(16px,2.4vw,22px);width:100%;border:none;justify-content:center;cursor:pointer}
-.rsvp-submit:disabled{opacity:.85;cursor:default}
-.rsvp-submit .spin{display:inline-block;width:15px;height:15px;margin-right:9px;vertical-align:-2px;
-  border:2px solid rgba(32,38,15,.3);border-top-color:#20260f;border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.rsvp-form .form-note{margin-top:12px;font-size:.8rem;color:rgba(244,238,227,.5);text-align:center}
-.form-success{display:none;font-family:'Fraunces',serif;font-style:italic;
-  font-size:clamp(1.05rem,1.9vw,1.35rem);color:var(--gold);line-height:1.45}
-.form-success.show{display:block;animation:vh-rise .7s cubic-bezier(.18,.8,.25,1) both}
-.form-error{display:none;margin-top:14px;font-family:'Fraunces',serif;font-style:italic;
-  font-size:clamp(.98rem,1.6vw,1.15rem);color:#E7B4B8;line-height:1.45}
-.form-error.show{display:block}
-.form-error a{color:#E7B4B8;text-decoration:underline}
-@media(max-width:560px){.rsvp-fields{grid-template-columns:1fr}}
+/* rsvp embedded Google Form (revealed inside the dark card) */
+.rsvp-embed{overflow:hidden;max-height:0;opacity:0;
+  transition:max-height .6s ease,opacity .45s ease,margin-top .45s ease}
+.rsvp-embed.show{max-height:2400px;opacity:1;margin-top:clamp(22px,3vw,30px)}
+.rsvp-embed iframe{display:block;width:100%;height:1180px;border:0;border-radius:14px;background:#fff}
 
 /* footer */
 .foot{background:var(--ink);color:var(--paper);
@@ -464,34 +437,12 @@ body::after{
       <button class="btn btn-solid" id="rsvpOpen" type="button">RSVP</button>
     </div>
 
-    <form class="rsvp-form" id="signupForm" novalidate>
-      <div class="rsvp-fields">
-        <div class="rsvp-field full">
-          <label for="rsvp-name">Your name</label>
-          <input type="text" id="rsvp-name" name="name" placeholder="Full name" required>
-        </div>
-        <div class="rsvp-field">
-          <label for="rsvp-email">Email</label>
-          <input type="email" id="rsvp-email" name="email" placeholder="your@email.com" required>
-        </div>
-        <div class="rsvp-field">
-          <label for="rsvp-mobile">Mobile <span class="opt">(optional)</span></label>
-          <input type="tel" id="rsvp-mobile" name="mobile" placeholder="+61 400 000 000">
-        </div>
-        <div class="rsvp-field full">
-          <label for="rsvp-dietary">Dietary requirements <span class="opt">(optional)</span></label>
-          <input type="text" id="rsvp-dietary" name="dietary" placeholder="Allergies, plant-based, etc.">
-        </div>
-        <div class="rsvp-field full">
-          <label for="rsvp-song">Song request <span class="opt">(optional)</span></label>
-          <input type="text" id="rsvp-song" name="song" placeholder="What should we play? (we might not listen, hehe)">
-        </div>
-      </div>
-      <button type="submit" class="btn btn-solid rsvp-submit">Count me in →</button>
-      <p class="form-note">We'll send a calendar invite to confirm.</p>
-      <div class="form-success" id="formSuccess">You're on the list — we can't wait to celebrate with you. Check your inbox for a calendar invite. 囍</div>
-      <div class="form-error" id="formError">Hmm — that didn't send. Please try again, or email us at <a href="mailto:gingieandmeg@gmail.com">gingieandmeg@gmail.com</a>.</div>
-    </form>
+    <div class="rsvp-embed" id="rsvpEmbed">
+      <iframe
+        title="RSVP form"
+        src="https://docs.google.com/forms/d/e/1FAIpQLScOeQDf5ZAONGfqQfMPva-0CJdQpO9RJ4M6LMyjoVtENZuvlA/viewform?embedded=true"
+        loading="lazy">Loading…</iframe>
+    </div>
   </div>
 </section>
 
@@ -518,64 +469,19 @@ body::after{
   },{threshold:.18, rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.sr').forEach(el=>io.observe(el));
 
-  /* ── RSVP form → Google Apps Script ───────────────────────── */
+  /* ── RSVP → reveal embedded Google Form ───────────────────── */
   (function () {
-    var GAS_URL = 'https://script.google.com/macros/s/AKfycbyBDq-sqFWYi5w_XHUYUPAmLJrMG6-XegN1ocAEERZIOZh9Z3stAYxujJP12VEo9KKVUw/exec';
-
     var openBtn = document.getElementById('rsvpOpen');
     var cta     = document.getElementById('rsvpCta');
-    var form    = document.getElementById('signupForm');
-    if (!form) return;
+    var embed   = document.getElementById('rsvpEmbed');
+    if (!openBtn || !embed) return;
 
-    // Reveal the form when RSVP is clicked
-    if (openBtn) openBtn.addEventListener('click', function () {
+    openBtn.addEventListener('click', function () {
       if (cta) cta.style.display = 'none';
-      form.classList.add('show');
+      embed.classList.add('show');
       setTimeout(function () {
-        var n = document.getElementById('rsvp-name');
-        if (n) n.focus();
-        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        embed.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 350);
-    });
-
-    // Submit
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      if (!form.checkValidity()) { form.reportValidity(); return; }
-
-      var btn = form.querySelector('.rsvp-submit');
-      var errBox = document.getElementById('formError');
-      if (errBox) errBox.classList.remove('show');
-      if (btn) { btn.innerHTML = '<span class="spin" aria-hidden="true"></span>Sending…'; btn.disabled = true; }
-
-      var val = function (n) { var el = form.querySelector('[name="' + n + '"]'); return el ? el.value : ''; };
-      var body = new URLSearchParams({
-        name: val('name'), email: val('email'), mobile: val('mobile'),
-        dietary: val('dietary'), song: val('song')
-      });
-
-      var onSuccess = function () {
-        var fields = form.querySelector('.rsvp-fields'); if (fields) fields.style.display = 'none';
-        if (btn) btn.style.display = 'none';
-        var note = form.querySelector('.form-note'); if (note) note.style.display = 'none';
-        var ok = document.getElementById('formSuccess');
-        if (ok) { ok.classList.add('show'); ok.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-      };
-
-      var onFail = function () {
-        if (btn) { btn.innerHTML = 'Count me in →'; btn.disabled = false; }
-        if (errBox) { errBox.classList.add('show'); errBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-      };
-
-      // Abort if it hangs too long, so the guest is never stuck spinning
-      var controller = ('AbortController' in window) ? new AbortController() : null;
-      var timer = setTimeout(function () { if (controller) controller.abort(); }, 20000);
-
-      // form-encoded + no custom headers = no CORS preflight; no-cors = opaque-but-sent.
-      // Resolve = the request reached Google → success. Reject = blocked/offline → show fallback.
-      fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: body, signal: controller ? controller.signal : undefined })
-        .then(function () { clearTimeout(timer); onSuccess(); })
-        .catch(function () { clearTimeout(timer); onFail(); });
     });
   })();
 </script>
