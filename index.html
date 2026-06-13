@@ -253,7 +253,7 @@ body::after{
 /* rsvp invitation card */
 .rsvp-sec{display:flex;justify-content:center;padding-top:clamp(20px,3vw,44px)}
 .rsvp-card{position:relative;overflow:hidden;width:min(700px,100%);text-align:center;isolation:isolate;
-  background:radial-gradient(130% 150% at 50% -10%, #313920 0%, #232a14 52%, #181d0e 100%);
+  background:radial-gradient(125% 700px at 50% -8%, #313920 0%, #232a14 52%, #1b200e 100%) #1b200e;
   color:var(--paper);border-radius:clamp(18px,2.4vw,30px);
   padding:clamp(44px,6.4vw,84px) clamp(26px,5vw,72px);
   box-shadow:0 46px 92px -54px rgba(0,0,0,.72)}
@@ -439,6 +439,7 @@ body::after{
 
     <div class="rsvp-embed" id="rsvpEmbed">
       <iframe
+        id="rsvpFrame"
         title="RSVP form"
         src="https://docs.google.com/forms/d/e/1FAIpQLScOeQDf5ZAONGfqQfMPva-0CJdQpO9RJ4M6LMyjoVtENZuvlA/viewform?embedded=true"
         loading="lazy">Loading…</iframe>
@@ -483,6 +484,22 @@ body::after{
         embed.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 350);
     });
+
+    // After submission the Google Form reloads to its confirmation page
+    // (2nd load event) — shrink the iframe so there's no tall empty space.
+    var frame = document.getElementById('rsvpFrame');
+    if (frame) {
+      var loads = 0;
+      frame.addEventListener('load', function () {
+        loads++;
+        if (loads > 1) {
+          frame.style.height = '260px';
+          setTimeout(function () {
+            frame.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 200);
+        }
+      });
+    }
   })();
 </script>
 
