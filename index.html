@@ -128,24 +128,20 @@ body::after{
 @media(max-width:640px){
   .vh-links a:not(.vh-rsvp){display:none}
   .vh-scroll{
-    --vh-gold:#E0C488;
+    --vh-green:#AEC178;
     display:flex;align-items:flex-start;justify-content:center;
-    position:absolute;z-index:6;left:50%;bottom:8px;transform:translateX(-50%);
-    width:58px;height:42px;text-decoration:none;
+    position:absolute;z-index:6;left:50%;bottom:16px;transform:translateX(-50%);
+    width:58px;height:20px;text-decoration:none;
     opacity:0;animation:vh-fade 1s ease forwards;animation-delay:1.1s;
     transition:opacity .5s ease;
   }
   .vh-scroll.hide{opacity:0;pointer-events:none}
-  .vh-scroll-orn{overflow:visible;filter:drop-shadow(0 1px 6px rgba(20,24,14,.6))}
-  .vh-scroll-bead{filter:drop-shadow(0 0 2.5px rgba(174,190,139,.55));
-    animation:vh-fall 2.7s cubic-bezier(.42,0,.38,1) infinite}
+  .vh-scroll-orn{filter:drop-shadow(0 1px 5px rgba(20,24,14,.55));
+    animation:vh-pulse 1.9s ease-in-out infinite}
   @keyframes vh-fade{to{opacity:.95}}
-  @keyframes vh-fall{
-    0%{transform:translateY(0);opacity:0}
-    16%{opacity:1}
-    74%{transform:translateY(27px);opacity:1}
-    90%{transform:translateY(31px);opacity:0}
-    100%{transform:translateY(31px);opacity:0}}
+  @keyframes vh-pulse{
+    0%,100%{opacity:.4;transform:translateY(-2px)}
+    50%{opacity:1;transform:translateY(2px)}}
   #details{min-height:100svh;display:flex;align-items:center}
   #details .day-wrap{width:100%}
   #details .chapter{font-size:18px}
@@ -381,27 +377,9 @@ body::after{
 
   <!-- mobile-only scroll cue (top-nav links are hidden on phones) -->
   <a href="#story" class="vh-scroll" id="vhScroll" aria-label="Continue">
-    <svg class="vh-scroll-orn" width="22" height="40" viewBox="0 0 22 40" fill="none" aria-hidden="true">
-      <defs>
-        <linearGradient id="vhThread" x1="11" y1="4" x2="11" y2="38" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#E0C488" stop-opacity="0.42"/>
-          <stop offset="0.72" stop-color="#E0C488" stop-opacity="0.34"/>
-          <stop offset="1" stop-color="#E0C488" stop-opacity="0"/>
-        </linearGradient>
-        <linearGradient id="vhTrail" x1="11" y1="-9" x2="11" y2="4" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#C2CFA0" stop-opacity="0"/>
-          <stop offset="1" stop-color="#C2CFA0" stop-opacity="0.5"/>
-        </linearGradient>
-      </defs>
-      <!-- top ring -->
-      <circle cx="11" cy="2.4" r="1.8" stroke="var(--vh-gold)" stroke-width="1"/>
-      <!-- soft gradient filament that dissolves toward the bottom -->
-      <line x1="11" y1="4.2" x2="11" y2="38" stroke="url(#vhThread)" stroke-width="1"/>
-      <!-- jade-and-gold bead falling, with soft trail -->
-      <g class="vh-scroll-bead">
-        <line x1="11" y1="-8" x2="11" y2="4" stroke="url(#vhTrail)" stroke-width="1.5" stroke-linecap="round"/>
-        <circle cx="11" cy="7" r="3" fill="rgba(174,190,139,.55)" stroke="var(--vh-gold)" stroke-width="1.1"/>
-      </g>
+    <svg class="vh-scroll-orn" width="28" height="18" viewBox="0 0 28 18" fill="none" aria-hidden="true">
+      <path d="M4 4.5 L14 13.5 L24 4.5" stroke="var(--vh-green)" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
 </section>
