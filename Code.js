@@ -116,7 +116,7 @@ function addComment(e) {
 }
 
 function notifyPrivateNote(name, category, message) {
-  const subject = 'Private note from ' + name + ' 💛';
+  const subject = 'Private note from ' + name + ' 💚';
   const body =
     name + ' left you a private note on the wall' +
     (category ? ' [' + category + ']' : '') + ':\n\n' +

@@ -432,20 +432,22 @@ body::after{
 .bubble[data-cat="Accommodation"]{--bc:var(--w-rose)}
 .bubble[data-cat="Question"]{--bc:var(--w-green-deep)}
 @keyframes bubble-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.bubble-av{flex:0 0 auto;width:38px;height:38px;border-radius:50%;
+.bubble-av{flex:0 0 auto;width:34px;height:34px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-family:'Fraunces',serif;font-weight:500;font-size:1.02rem;color:#fff;background:var(--bc);margin-top:2px}
-.bubble-body{background:#fff;border:1px solid rgba(31,28,21,.06);border-radius:16px;
-  padding:12px 17px 13px;max-width:88%;box-shadow:0 6px 18px -14px rgba(120,70,80,.3)}
-.bubble-head{display:flex;align-items:baseline;gap:9px;margin-bottom:4px}
-.bubble-name{font-weight:700;font-size:.94rem;color:var(--ink);letter-spacing:-.01em}
-.bubble-tag{font-size:.63rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;
-  padding:2px 9px;border-radius:30px;color:var(--bc);
+  font-family:'Fraunces',serif;font-weight:500;font-size:.95rem;color:#fff;background:var(--bc);margin-top:1px}
+.bubble-main{flex:1 1 auto;min-width:0}
+.bubble-head{display:flex;align-items:baseline;gap:8px;margin:1px 0 5px}
+.bubble-name{font-weight:700;font-size:.9rem;color:var(--ink);letter-spacing:-.01em}
+.bubble-tag{font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;font-weight:700;
+  padding:1px 8px;border-radius:30px;color:var(--bc);
   background:rgba(31,28,21,.045);border:1px solid rgba(31,28,21,.07)}
-.bubble-time{margin-left:auto;font-size:.72rem;color:var(--ink-soft);opacity:.7;white-space:nowrap}
-.bubble-msg{font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;line-height:1.5;
+.bubble-time{margin-left:auto;font-size:.7rem;color:var(--ink-soft);opacity:.7;white-space:nowrap}
+.bubble-body{display:inline-block;max-width:100%;background:#fff;border:1px solid rgba(31,28,21,.06);
+  border-radius:14px;border-top-left-radius:4px;padding:8px 14px;
+  box-shadow:0 4px 14px -12px rgba(120,70,80,.4)}
+.bubble-msg{font-family:'Fraunces',serif;font-style:italic;font-size:1.02rem;line-height:1.45;
   color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
-.bubble-foot{margin-top:8px}
+.bubble-foot{margin-top:6px}
 .bubble-reply{font:inherit;font-size:.78rem;font-weight:600;cursor:pointer;border:none;background:none;
   color:var(--w-green-deep);padding:0;display:inline-flex;align-items:center;gap:5px;
   -webkit-tap-highlight-color:transparent;transition:opacity .15s}
@@ -677,7 +679,7 @@ body::after{
 
     <div class="wall-filter sr" id="wallFilter" role="group" aria-label="Filter notes">
       <button type="button" class="wf-tab is-on" data-filter="all">All <span class="wf-count" data-c="all">0</span></button>
-      <button type="button" class="wf-tab" data-filter="Wishes">💛 Wishes <span class="wf-count" data-c="Wishes">0</span></button>
+      <button type="button" class="wf-tab" data-filter="Wishes">💚 Wishes <span class="wf-count" data-c="Wishes">0</span></button>
       <button type="button" class="wf-tab" data-filter="Carpool">🚗 Carpool <span class="wf-count" data-c="Carpool">0</span></button>
       <button type="button" class="wf-tab" data-filter="Accommodation">🏡 Stay <span class="wf-count" data-c="Accommodation">0</span></button>
       <button type="button" class="wf-tab" data-filter="Question">💬 Questions <span class="wf-count" data-c="Question">0</span></button>
@@ -695,7 +697,7 @@ body::after{
         <div class="wc-row">
           <input class="wc-name" id="wcName" type="text" maxlength="60" placeholder="Your name" required>
           <div class="wc-cats" id="wcCats" role="group" aria-label="Type of note">
-            <button type="button" class="wc-cat is-on" data-cat="Wishes">💛 Wishes</button>
+            <button type="button" class="wc-cat is-on" data-cat="Wishes">💚 Wishes</button>
             <button type="button" class="wc-cat" data-cat="Carpool">🚗 Carpool</button>
             <button type="button" class="wc-cat" data-cat="Accommodation">🏡 Stay</button>
             <button type="button" class="wc-cat" data-cat="Question">💬 Question</button>
@@ -856,10 +858,10 @@ body::after{
     var byId = {};                 // id -> comment
     var openParentId = null;
 
-    var TAGS = { Wishes:'💛 Wishes', Carpool:'🚗 Carpool', Accommodation:'🏡 Stay', Question:'💬 Question' };
+    var TAGS = { Wishes:'💚 Wishes', Carpool:'🚗 Carpool', Accommodation:'🏡 Stay', Question:'💬 Question' };
     var EMPTY = {
       all:'No notes yet — be the first below 💌',
-      Wishes:'No wishes yet — leave the first below 💛',
+      Wishes:'No wishes yet — leave the first below 💚',
       Carpool:'No carpool notes yet — offer or ask for a lift below 🚗',
       Accommodation:'No stay tips yet — share one below 🏡',
       Question:'No questions yet — ask below 💬'
@@ -958,7 +960,9 @@ body::after{
       av.textContent = initial(c.name);
       b.appendChild(av);
 
-      var body = document.createElement('div'); body.className = 'bubble-body';
+      var main = document.createElement('div'); main.className = 'bubble-main';
+
+      // name + tag + time sit beside the circle, above the bubble
       var head = document.createElement('div'); head.className = 'bubble-head';
       var nm = document.createElement('span'); nm.className = 'bubble-name';
       nm.textContent = c.name || 'Guest'; head.appendChild(nm);
@@ -968,10 +972,13 @@ body::after{
       }
       var tm = document.createElement('span'); tm.className = 'bubble-time';
       tm.textContent = timeAgo(c.t); head.appendChild(tm);
-      body.appendChild(head);
+      main.appendChild(head);
 
+      // the bubble holds only the sentence
+      var body = document.createElement('div'); body.className = 'bubble-body';
       var ms = document.createElement('div'); ms.className = 'bubble-msg';
       ms.textContent = c.message; body.appendChild(ms);
+      main.appendChild(body);
 
       // reply affordance on top-level notes (not inside the thread view)
       if (!(opts && opts.thread) && !c.replyTo) {
@@ -980,10 +987,10 @@ body::after{
         var rb = document.createElement('button'); rb.type = 'button'; rb.className = 'bubble-reply';
         rb.setAttribute('data-id', c.id || '');
         rb.textContent = n ? ('💬 ' + n + (n === 1 ? ' reply' : ' replies')) : '💬 Reply';
-        foot.appendChild(rb); body.appendChild(foot);
+        foot.appendChild(rb); main.appendChild(foot);
       }
 
-      b.appendChild(body);
+      b.appendChild(main);
       return b;
     }
 
@@ -1103,7 +1110,7 @@ body::after{
       trMsg.value = '';
 
       function rdone() {
-        trStatus.textContent = 'Posted 💛'; trSend.disabled = false;
+        trStatus.textContent = 'Posted 💚'; trSend.disabled = false;
         setTimeout(function () { if (trStatus) trStatus.textContent = ''; }, 3500);
         setTimeout(load, 1400);
       }
@@ -1155,7 +1162,7 @@ body::after{
       if (privateEl) privateEl.checked = false;
 
       function succeed() {
-        setStatus(isPrivate ? 'Sent privately — thank you! 💛' : 'Posted — thank you! 💛', false);
+        setStatus(isPrivate ? 'Sent privately — thank you! 💚' : 'Posted — thank you! 💚', false);
         sendEl.disabled = false;
         if (seatsEl) seatsEl.value = '';        // clear structured extras
         if (fromEl)  fromEl.value  = '';
