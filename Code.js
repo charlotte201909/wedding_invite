@@ -91,7 +91,15 @@ function addComment(e) {
   const isPrivate = isTruthy(e.parameter.private);
   if (!message) return jsonOut({ ok: false, error: 'empty' });
 
-  commentsSheet().appendRow([new Date(), name, category, message, true, isPrivate]);
+  // Serialise writes so simultaneous posts can't clobber each other
+  const lock = LockService.getScriptLock();
+  try { lock.waitLock(8000); }
+  catch (err) { return jsonOut({ ok: false, error: 'busy' }); }
+  try {
+    commentsSheet().appendRow([new Date(), name, category, message, true, isPrivate]);
+  } finally {
+    lock.releaseLock();
+  }
   Logger.log('Comment added by %s [%s]%s', name, category, isPrivate ? ' (private)' : '');
 
   if (isPrivate) {
