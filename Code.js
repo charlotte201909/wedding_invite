@@ -3,12 +3,25 @@ const SHEET_ID     = '1FhaRqzKcbvwBNMj1gN0yqpSHs5zSDPU2sp3OHe_luUI';
 const NOTIFY_EMAIL = 'panyinlun@gmail.com';
 const WEDDING_DATE = 'Saturday, 13th March 2027 · 6pm – late · Sydney';
 
+const COMMENTS_SHEET = 'Comments';
+const MAX_NAME = 60;
+const MAX_CAT  = 30;
+const MAX_MSG  = 800;
+
 // ─── Web app entry points ─────────────────────────────────────────────────────
-function doGet() {
+function doGet(e) {
+  if (e && e.parameter && e.parameter.action === 'comments') {
+    return jsonOut(getComments());
+  }
   return ContentService.createTextOutput('ok');
 }
 
 function doPost(e) {
+  // Guest-wall comment
+  if (e && e.parameter && e.parameter.action === 'comment') {
+    return addComment(e);
+  }
+
   const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName('RSVP');
 
   const name         = e.parameter.name         || '';
@@ -52,6 +65,52 @@ function doPost(e) {
   }
 
   return ContentService.createTextOutput('ok');
+}
+
+// ─── Guest wall (comments) ────────────────────────────────────────────────────
+function commentsSheet() {
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  let sh = ss.getSheetByName(COMMENTS_SHEET);
+  if (!sh) {
+    sh = ss.insertSheet(COMMENTS_SHEET);
+    sh.appendRow(['timestamp', 'name', 'category', 'message', 'approved']);
+  }
+  return sh;
+}
+
+function addComment(e) {
+  const name     = String(e.parameter.name     || '').trim().slice(0, MAX_NAME) || 'Guest';
+  const category = String(e.parameter.category || '').trim().slice(0, MAX_CAT);
+  const message  = String(e.parameter.message  || '').trim().slice(0, MAX_MSG);
+  if (!message) return jsonOut({ ok: false, error: 'empty' });
+
+  commentsSheet().appendRow([new Date(), name, category, message, true]);
+  Logger.log('Comment added by %s [%s]', name, category);
+  return jsonOut({ ok: true });
+}
+
+function getComments() {
+  const vals = commentsSheet().getDataRange().getValues();
+  const out = [];
+  for (let i = 1; i < vals.length; i++) {
+    const ts = vals[i][0], name = vals[i][1], category = vals[i][2],
+          message = vals[i][3], approved = vals[i][4];
+    if (!message) continue;
+    if (approved === false || approved === 'FALSE' || approved === 'No') continue; // hidden
+    out.push({
+      t: ts instanceof Date ? ts.getTime() : Date.parse(ts) || 0,
+      name: String(name || 'Guest'),
+      category: String(category || ''),
+      message: String(message)
+    });
+  }
+  return out;
+}
+
+function jsonOut(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 // ─── Deduplication ────────────────────────────────────────────────────────────

@@ -1,0 +1,5 @@
+# Push only the Apps Script files; ignore the website + everything else
+**/**
+
+!Code.js
+!appsscript.json

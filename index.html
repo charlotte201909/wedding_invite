@@ -316,6 +316,67 @@ body::after{
 .rsvp-embed.show{max-height:2400px;opacity:1;margin-top:clamp(22px,3vw,30px)}
 .rsvp-embed iframe{display:block;width:100%;height:1180px;border:0;border-radius:14px;background:#fff}
 
+/* ============================================================
+   THE WALL  (guest comments)
+   ============================================================ */
+.wall-sec{padding-top:clamp(24px,3.4vw,46px)}
+.wall-wrap{max-width:760px;margin:0 auto}
+.wall-intro{font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);
+  font-size:clamp(1.08rem,1.8vw,1.34rem);line-height:1.5;max-width:600px;
+  margin-bottom:clamp(20px,2.6vw,30px)}
+.wall-intro .wall-note{display:block;font-size:.74em;font-style:normal;opacity:.75;margin-top:.45em;
+  letter-spacing:.02em}
+
+/* compose box */
+.wall-compose{display:flex;flex-direction:column;gap:13px;margin-bottom:clamp(28px,3.6vw,44px);
+  padding:clamp(18px,2.6vw,30px)}
+.wc-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.wc-name{flex:1 1 190px;min-width:0;font:inherit;font-size:1rem;color:var(--ink);
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 15px}
+.wc-msg{width:100%;font:inherit;font-size:1rem;color:var(--ink);line-height:1.55;resize:vertical;
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 15px;min-height:86px}
+.wc-name::placeholder,.wc-msg::placeholder{color:#a89e8c}
+.wc-name:focus,.wc-msg:focus{outline:none;border-color:var(--sage);box-shadow:0 0 0 3px rgba(138,149,104,.16)}
+.wc-cats{display:flex;gap:7px;flex-wrap:wrap}
+.wc-cat{font:inherit;font-size:.82rem;cursor:pointer;border:1px solid var(--line);
+  background:#fff;color:var(--ink-soft);border-radius:40px;padding:7px 13px;transition:all .18s;
+  -webkit-tap-highlight-color:transparent}
+.wc-cat:hover{border-color:var(--sage)}
+.wc-cat.is-on{background:var(--red);color:#fff;border-color:var(--red)}
+.wc-actions{display:flex;align-items:center;justify-content:flex-end;gap:16px}
+.wc-status{font-family:'Fraunces',serif;font-style:italic;font-size:.92rem;color:var(--ink-soft)}
+.wc-status.err{color:#b23b4e}
+.wall-compose .btn{padding:12px 30px}
+
+/* bubble list */
+.wall-list{display:flex;flex-direction:column;gap:clamp(13px,1.8vw,18px)}
+.wall-empty{text-align:center;color:var(--ink-soft);font-family:'Fraunces',serif;font-style:italic;
+  font-size:1.05rem;padding:clamp(18px,4vw,38px) 0}
+.bubble{display:flex;gap:11px;align-items:flex-start;animation:bubble-in .5s cubic-bezier(.18,.8,.25,1)}
+@keyframes bubble-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.bubble-av{flex:0 0 auto;width:38px;height:38px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.95rem;color:#fff;background:var(--sage);margin-top:3px}
+.bubble-body{position:relative;background:#fff;border:1px solid var(--line);
+  border-radius:16px;border-top-left-radius:4px;padding:11px 16px 12px;max-width:84%;
+  box-shadow:0 14px 34px -28px rgba(31,28,21,.55)}
+.bubble-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:4px}
+.bubble-name{font-weight:700;font-size:.92rem;color:var(--ink);letter-spacing:-.01em}
+.bubble-tag{font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;font-weight:600;
+  padding:2px 9px;border-radius:30px;background:rgba(138,149,104,.16);color:var(--red)}
+.bubble-msg{font-size:.99rem;line-height:1.5;color:var(--ink);white-space:pre-wrap;
+  overflow-wrap:anywhere}
+.bubble-time{display:block;margin-top:6px;font-size:.72rem;color:var(--ink-soft);opacity:.8}
+.bubble[data-cat="Wishes"] .bubble-av{background:var(--gold)}
+.bubble[data-cat="Carpool"] .bubble-av{background:var(--red)}
+.bubble[data-cat="Accommodation"] .bubble-av{background:var(--sage)}
+.bubble[data-cat="Question"] .bubble-av{background:#9a8f7d}
+
+@media(max-width:600px){
+  .bubble-body{max-width:100%}
+  .wc-actions{justify-content:space-between}
+}
+
 /* footer */
 .foot{background:var(--ink);color:var(--paper);
   padding:clamp(16px,2.4vw,28px) var(--pad);
@@ -354,6 +415,7 @@ body::after{
     <nav class="vh-links">
       <a href="#story">The Invitation</a>
       <a href="#details">The Day</a>
+      <a href="#wall">The Wall</a>
       <a href="#rsvp" class="vh-rsvp">RSVP</a>
     </nav>
   </header>
@@ -493,6 +555,36 @@ body::after{
   </div>
 </section>
 
+<!-- ===== THE WALL ===== -->
+<section class="section wall-sec" id="wall">
+  <div class="wall-wrap">
+    <span class="chapter sr">The Wall</span>
+    <p class="wall-intro sr">Leave us a note — send a wish, find a carpool, or swap tips on where to stay.
+      <span class="wall-note">Posts show up here for everyone to see.</span></p>
+
+    <form class="wall-compose panel sr" id="wallForm" autocomplete="off">
+      <div class="wc-row">
+        <input class="wc-name" id="wcName" type="text" maxlength="60" placeholder="Your name" required>
+        <div class="wc-cats" id="wcCats" role="group" aria-label="Type of note">
+          <button type="button" class="wc-cat is-on" data-cat="Wishes">💛 Wishes</button>
+          <button type="button" class="wc-cat" data-cat="Carpool">🚗 Carpool</button>
+          <button type="button" class="wc-cat" data-cat="Accommodation">🏡 Stay</button>
+          <button type="button" class="wc-cat" data-cat="Question">💬 Question</button>
+        </div>
+      </div>
+      <textarea class="wc-msg" id="wcMsg" maxlength="800" rows="3" placeholder="Write something lovely…" required></textarea>
+      <div class="wc-actions">
+        <span class="wc-status" id="wcStatus" aria-live="polite"></span>
+        <button class="btn btn-solid" id="wcSend" type="submit">Post</button>
+      </div>
+    </form>
+
+    <div class="wall-list" id="wallList" aria-live="polite">
+      <p class="wall-empty" id="wallEmpty">Be the first to leave a note 💌</p>
+    </div>
+  </div>
+</section>
+
 <!-- ===== FOOTER ===== -->
 <footer class="foot">
   <div class="fbrand">Charlotte <span class="xi">囍</span> Charles</div>
@@ -545,6 +637,124 @@ body::after{
         }
       });
     }
+  })();
+
+  /* ── The Wall (guest comments) ────────────────────────────── */
+  (function () {
+    var GAS_URL = 'https://script.google.com/macros/s/AKfycbxkYA16l8ixIeUTolZRTm-HVK8idOGpaeDOIoqfaXx4l17u05XDYfbHHbObor4tIt_j/exec';
+    var form = document.getElementById('wallForm');
+    if (!form) return;
+
+    var listEl   = document.getElementById('wallList');
+    var emptyEl  = document.getElementById('wallEmpty');
+    var nameEl   = document.getElementById('wcName');
+    var msgEl    = document.getElementById('wcMsg');
+    var sendEl   = document.getElementById('wcSend');
+    var statusEl = document.getElementById('wcStatus');
+    var catWrap  = document.getElementById('wcCats');
+    var category = 'Wishes';
+
+    var TAGS = { Wishes:'💛 Wishes', Carpool:'🚗 Carpool', Accommodation:'🏡 Stay', Question:'💬 Question' };
+
+    catWrap.addEventListener('click', function (ev) {
+      var b = ev.target.closest('.wc-cat'); if (!b) return;
+      catWrap.querySelectorAll('.wc-cat').forEach(function (x) { x.classList.remove('is-on'); });
+      b.classList.add('is-on');
+      category = b.getAttribute('data-cat');
+    });
+
+    function initial(name) { return ((name || '').trim()[0] || '♥').toUpperCase(); }
+
+    function timeAgo(t) {
+      if (!t) return '';
+      var s = Math.floor((Date.now() - t) / 1000);
+      if (s < 60) return 'just now';
+      var m = Math.floor(s / 60); if (m < 60) return m + (m === 1 ? ' min ago' : ' mins ago');
+      var h = Math.floor(m / 60); if (h < 24) return h + (h === 1 ? ' hr ago' : ' hrs ago');
+      var d = Math.floor(h / 24); if (d < 7) return d + (d === 1 ? ' day ago' : ' days ago');
+      return new Date(t).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' });
+    }
+
+    // Build a bubble with textContent only (no HTML injection)
+    function makeBubble(c) {
+      var b = document.createElement('div');
+      b.className = 'bubble';
+      if (c.category) b.setAttribute('data-cat', c.category);
+
+      var av = document.createElement('div');
+      av.className = 'bubble-av';
+      av.textContent = initial(c.name);
+      b.appendChild(av);
+
+      var body = document.createElement('div'); body.className = 'bubble-body';
+      var head = document.createElement('div'); head.className = 'bubble-head';
+      var nm = document.createElement('span'); nm.className = 'bubble-name';
+      nm.textContent = c.name || 'Guest'; head.appendChild(nm);
+      if (c.category) {
+        var tg = document.createElement('span'); tg.className = 'bubble-tag';
+        tg.textContent = TAGS[c.category] || c.category; head.appendChild(tg);
+      }
+      body.appendChild(head);
+
+      var ms = document.createElement('div'); ms.className = 'bubble-msg';
+      ms.textContent = c.message; body.appendChild(ms);
+
+      var tm = document.createElement('span'); tm.className = 'bubble-time';
+      tm.textContent = timeAgo(c.t); body.appendChild(tm);
+
+      b.appendChild(body);
+      return b;
+    }
+
+    function showEmpty(on) { emptyEl.style.display = on ? '' : 'none'; }
+
+    function render(list) {
+      listEl.innerHTML = '';
+      if (!list.length) { listEl.appendChild(emptyEl); showEmpty(true); return; }
+      list.sort(function (a, b) { return (b.t || 0) - (a.t || 0); }); // newest first
+      list.forEach(function (c) { listEl.appendChild(makeBubble(c)); });
+    }
+
+    function load() {
+      fetch(GAS_URL + '?action=comments', { method: 'GET' })
+        .then(function (r) { return r.json(); })
+        .then(function (data) { if (Array.isArray(data)) render(data); })
+        .catch(function () { /* keep whatever's shown */ });
+    }
+
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var name = (nameEl.value || '').trim();
+      var message = (msgEl.value || '').trim();
+      if (!message) { msgEl.focus(); return; }
+
+      sendEl.disabled = true;
+      statusEl.className = 'wc-status';
+      statusEl.textContent = 'Posting…';
+
+      var body = new URLSearchParams({
+        action: 'comment', name: name || 'Guest', category: category, message: message
+      });
+
+      fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: body })
+        .then(function () {
+          showEmpty(false);
+          var bub = makeBubble({ t: Date.now(), name: name || 'Guest', category: category, message: message });
+          if (listEl.firstChild) listEl.insertBefore(bub, listEl.firstChild);
+          else listEl.appendChild(bub);
+          msgEl.value = '';
+          statusEl.textContent = 'Posted — thank you! 💛';
+          sendEl.disabled = false;
+          setTimeout(function () { statusEl.textContent = ''; }, 4000);
+        })
+        .catch(function () {
+          statusEl.className = 'wc-status err';
+          statusEl.textContent = "Hmm, that didn't send — try again?";
+          sendEl.disabled = false;
+        });
+    });
+
+    load();
   })();
 </script>
 
