@@ -343,7 +343,12 @@ body::after{
   -webkit-tap-highlight-color:transparent}
 .wc-cat:hover{border-color:var(--sage)}
 .wc-cat.is-on{background:var(--red);color:#fff;border-color:var(--red)}
-.wc-actions{display:flex;align-items:center;justify-content:flex-end;gap:16px}
+.wc-actions{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.wc-send-grp{display:flex;align-items:center;gap:16px;margin-left:auto}
+.wc-private{display:flex;align-items:center;gap:8px;cursor:pointer;
+  font-family:'Fraunces',serif;font-style:italic;font-size:.92rem;color:var(--ink-soft);
+  -webkit-tap-highlight-color:transparent}
+.wc-private input{width:16px;height:16px;accent-color:var(--red);cursor:pointer;flex:0 0 auto}
 .wc-status{font-family:'Fraunces',serif;font-style:italic;font-size:.92rem;color:var(--ink-soft)}
 .wc-status.err{color:#b23b4e}
 .wall-compose .btn{padding:12px 30px}
@@ -560,7 +565,7 @@ body::after{
   <div class="wall-wrap">
     <span class="chapter sr">The Wall</span>
     <p class="wall-intro sr">Leave us a note — send a wish, find a carpool, or swap tips on where to stay.
-      <span class="wall-note">Posts show up here for everyone to see.</span></p>
+      <span class="wall-note">Posts show up here for everyone — or tick “just for us” to send a private note only we can see.</span></p>
 
     <form class="wall-compose panel sr" id="wallForm" autocomplete="off">
       <div class="wc-row">
@@ -574,8 +579,11 @@ body::after{
       </div>
       <textarea class="wc-msg" id="wcMsg" maxlength="800" rows="3" placeholder="Write something lovely…" required></textarea>
       <div class="wc-actions">
-        <span class="wc-status" id="wcStatus" aria-live="polite"></span>
-        <button class="btn btn-solid" id="wcSend" type="submit">Post</button>
+        <label class="wc-private"><input type="checkbox" id="wcPrivate"> Just for Charlotte &amp; Charles (private)</label>
+        <div class="wc-send-grp">
+          <span class="wc-status" id="wcStatus" aria-live="polite"></span>
+          <button class="btn btn-solid" id="wcSend" type="submit">Post</button>
+        </div>
       </div>
     </form>
 
@@ -649,10 +657,11 @@ body::after{
     var emptyEl  = document.getElementById('wallEmpty');
     var nameEl   = document.getElementById('wcName');
     var msgEl    = document.getElementById('wcMsg');
-    var sendEl   = document.getElementById('wcSend');
-    var statusEl = document.getElementById('wcStatus');
-    var catWrap  = document.getElementById('wcCats');
-    var category = 'Wishes';
+    var sendEl    = document.getElementById('wcSend');
+    var statusEl  = document.getElementById('wcStatus');
+    var catWrap   = document.getElementById('wcCats');
+    var privateEl = document.getElementById('wcPrivate');
+    var category  = 'Wishes';
 
     var TAGS = { Wishes:'💛 Wishes', Carpool:'🚗 Carpool', Accommodation:'🏡 Stay', Question:'💬 Question' };
 
@@ -728,24 +737,29 @@ body::after{
       var message = (msgEl.value || '').trim();
       if (!message) { msgEl.focus(); return; }
 
+      var isPrivate = !!(privateEl && privateEl.checked);
       sendEl.disabled = true;
       statusEl.className = 'wc-status';
-      statusEl.textContent = 'Posting…';
+      statusEl.textContent = isPrivate ? 'Sending privately…' : 'Posting…';
 
       var body = new URLSearchParams({
-        action: 'comment', name: name || 'Guest', category: category, message: message
+        action: 'comment', name: name || 'Guest', category: category, message: message,
+        private: isPrivate ? '1' : ''
       });
 
       fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: body })
         .then(function () {
-          showEmpty(false);
-          var bub = makeBubble({ t: Date.now(), name: name || 'Guest', category: category, message: message });
-          if (listEl.firstChild) listEl.insertBefore(bub, listEl.firstChild);
-          else listEl.appendChild(bub);
+          if (!isPrivate) {
+            showEmpty(false);
+            var bub = makeBubble({ t: Date.now(), name: name || 'Guest', category: category, message: message });
+            if (listEl.firstChild) listEl.insertBefore(bub, listEl.firstChild);
+            else listEl.appendChild(bub);
+          }
           msgEl.value = '';
-          statusEl.textContent = 'Posted — thank you! 💛';
+          if (privateEl) privateEl.checked = false;
+          statusEl.textContent = isPrivate ? 'Sent privately — thank you! 💛' : 'Posted — thank you! 💛';
           sendEl.disabled = false;
-          setTimeout(function () { statusEl.textContent = ''; }, 4000);
+          setTimeout(function () { statusEl.textContent = ''; }, 4500);
         })
         .catch(function () {
           statusEl.className = 'wc-status err';

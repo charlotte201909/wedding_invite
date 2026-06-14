@@ -73,20 +73,42 @@ function commentsSheet() {
   let sh = ss.getSheetByName(COMMENTS_SHEET);
   if (!sh) {
     sh = ss.insertSheet(COMMENTS_SHEET);
-    sh.appendRow(['timestamp', 'name', 'category', 'message', 'approved']);
+    sh.appendRow(['timestamp', 'name', 'category', 'message', 'approved', 'private']);
+  } else if (!sh.getRange(1, 6).getValue()) {
+    sh.getRange(1, 6).setValue('private'); // backfill header on older sheets
   }
   return sh;
+}
+
+function isTruthy(v) {
+  return v === true || v === 'TRUE' || v === 'Yes' || v === 'yes' || v === 1 || v === '1';
 }
 
 function addComment(e) {
   const name     = String(e.parameter.name     || '').trim().slice(0, MAX_NAME) || 'Guest';
   const category = String(e.parameter.category || '').trim().slice(0, MAX_CAT);
   const message  = String(e.parameter.message  || '').trim().slice(0, MAX_MSG);
+  const isPrivate = isTruthy(e.parameter.private);
   if (!message) return jsonOut({ ok: false, error: 'empty' });
 
-  commentsSheet().appendRow([new Date(), name, category, message, true]);
-  Logger.log('Comment added by %s [%s]', name, category);
+  commentsSheet().appendRow([new Date(), name, category, message, true, isPrivate]);
+  Logger.log('Comment added by %s [%s]%s', name, category, isPrivate ? ' (private)' : '');
+
+  if (isPrivate) {
+    try { notifyPrivateNote(name, category, message); }
+    catch (err) { Logger.log('ERROR emailing private note: %s', err.message); }
+  }
   return jsonOut({ ok: true });
+}
+
+function notifyPrivateNote(name, category, message) {
+  const subject = 'Private note from ' + name + ' 💛';
+  const body =
+    name + ' left you a private note on the wall' +
+    (category ? ' [' + category + ']' : '') + ':\n\n' +
+    message + '\n\n' +
+    '(Only the two of you can see this — it is not shown publicly.)';
+  GmailApp.sendEmail(NOTIFY_EMAIL, subject, body, { name: 'The Wall' });
 }
 
 function getComments() {
@@ -94,8 +116,9 @@ function getComments() {
   const out = [];
   for (let i = 1; i < vals.length; i++) {
     const ts = vals[i][0], name = vals[i][1], category = vals[i][2],
-          message = vals[i][3], approved = vals[i][4];
+          message = vals[i][3], approved = vals[i][4], isPrivate = vals[i][5];
     if (!message) continue;
+    if (isTruthy(isPrivate)) continue;                                   // private — couple only
     if (approved === false || approved === 'FALSE' || approved === 'No') continue; // hidden
     out.push({
       t: ts instanceof Date ? ts.getTime() : Date.parse(ts) || 0,
