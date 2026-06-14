@@ -425,26 +425,22 @@ body::after{
 .wall-list::-webkit-scrollbar-track{background:transparent}
 .wall-empty{text-align:center;color:var(--ink-soft);font-family:'Fraunces',serif;font-style:italic;
   font-size:1.05rem;padding:clamp(18px,4vw,38px) 0}
-.bubble{--bc:var(--w-green);display:flex;gap:9px;align-items:flex-start;
-  animation:bubble-in .45s cubic-bezier(.18,.8,.25,1)}
+.bubble{--bc:var(--w-green);animation:bubble-in .45s cubic-bezier(.18,.8,.25,1)}
 .bubble[data-cat="Wishes"]{--bc:var(--w-straw)}
 .bubble[data-cat="Carpool"]{--bc:var(--w-green)}
 .bubble[data-cat="Accommodation"]{--bc:var(--w-rose)}
 .bubble[data-cat="Question"]{--bc:var(--w-green-deep)}
 @keyframes bubble-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.bubble-av{flex:0 0 auto;width:29px;height:29px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Fraunces',serif;font-weight:500;font-size:.84rem;color:#fff;background:var(--bc);margin-top:1px}
-.bubble-main{flex:1 1 auto;min-width:0}
+.bubble-main{min-width:0}
 .bubble-head{display:flex;align-items:baseline;gap:7px;margin:0 0 3px;line-height:1.1}
 .bubble-name{font-weight:700;font-size:.86rem;color:var(--ink);letter-spacing:-.01em}
 .bubble-tag{font-size:.58rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;
   padding:1px 7px;border-radius:30px;color:var(--bc);
   background:rgba(31,28,21,.045);border:1px solid rgba(31,28,21,.07)}
 .bubble-time{margin-left:auto;font-size:.68rem;color:var(--ink-soft);opacity:.65;white-space:nowrap}
-.bubble-body{display:inline-block;max-width:100%;background:#fff;border:1px solid rgba(31,28,21,.06);
-  border-radius:13px;border-top-left-radius:3px;padding:6px 12px;
-  box-shadow:0 3px 12px -11px rgba(120,70,80,.4)}
+.bubble-body{display:inline-block;max-width:100%;background:#fff;
+  border:1px solid rgba(31,28,21,.06);border-left:3px solid var(--bc);border-radius:12px;
+  padding:6px 13px;box-shadow:0 3px 12px -11px rgba(120,70,80,.4)}
 .bubble-msg{font-family:'Fraunces',serif;font-style:italic;font-size:1rem;line-height:1.35;
   color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
 .bubble-foot{margin-top:3px}
@@ -479,9 +475,7 @@ body::after{
   display:flex;flex-direction:column;gap:12px;scrollbar-width:thin;scrollbar-color:rgba(126,158,91,.45) transparent}
 .thread-scroll::-webkit-scrollbar{width:7px}
 .thread-scroll::-webkit-scrollbar-thumb{background:rgba(126,158,91,.38);border-radius:10px}
-.thread-reps{display:flex;flex-direction:column;gap:10px;
-  margin-left:12px;padding-left:14px;border-left:2px solid rgba(126,158,91,.28)}
-.thread-reps .bubble-av{width:26px;height:26px;font-size:.78rem}
+.thread-reps{display:flex;flex-direction:column;gap:10px;margin-left:16px}
 .thread-none{font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:.92rem;
   margin-left:12px}
 .thread-form{border-top:1px solid var(--line);background:#fff;
@@ -954,11 +948,6 @@ body::after{
       var b = document.createElement('div');
       b.className = 'bubble';
       if (c.category) b.setAttribute('data-cat', c.category);
-
-      var av = document.createElement('div');
-      av.className = 'bubble-av';
-      av.textContent = initial(c.name);
-      b.appendChild(av);
 
       var main = document.createElement('div'); main.className = 'bubble-main';
 
