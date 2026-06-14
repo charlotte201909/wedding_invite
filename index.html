@@ -432,12 +432,13 @@ body::after{
 .bubble[data-cat="Question"]{--bc:var(--w-green-deep)}
 @keyframes bubble-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .bubble-main{min-width:0}
-.bubble-head{display:flex;align-items:baseline;gap:7px;margin:0 0 3px;line-height:1.1}
-.bubble-name{font-weight:700;font-size:.86rem;color:var(--ink);letter-spacing:-.01em}
-.bubble-tag{font-size:.58rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;
+.bubble-head{display:flex;align-items:baseline;gap:7px;margin:0 0 3px;line-height:1.1;flex-wrap:nowrap}
+.bubble-name{font-weight:700;font-size:.86rem;color:var(--ink);letter-spacing:-.01em;
+  min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bubble-tag{flex:0 0 auto;font-size:.58rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;
   padding:1px 7px;border-radius:30px;color:var(--bc);
   background:rgba(31,28,21,.045);border:1px solid rgba(31,28,21,.07)}
-.bubble-time{margin-left:auto;font-size:.68rem;color:var(--ink-soft);opacity:.65;white-space:nowrap}
+.bubble-time{flex:0 0 auto;margin-left:auto;padding-left:6px;font-size:.68rem;color:var(--ink-soft);opacity:.65;white-space:nowrap}
 .bubble-body{display:inline-block;max-width:100%;background:#fff;
   border:1px solid rgba(31,28,21,.06);border-left:3px solid var(--bc);border-radius:12px;
   padding:6px 13px;box-shadow:0 3px 12px -11px rgba(120,70,80,.4)}
@@ -451,8 +452,6 @@ body::after{
 
 @media(max-width:600px){
   .bubble-body{max-width:100%}
-  .bubble-head{flex-wrap:wrap}
-  .bubble-time{margin-left:0;flex-basis:100%;order:3}
 }
 
 /* thread slide-over */
