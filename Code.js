@@ -73,9 +73,11 @@ function commentsSheet() {
   let sh = ss.getSheetByName(COMMENTS_SHEET);
   if (!sh) {
     sh = ss.insertSheet(COMMENTS_SHEET);
-    sh.appendRow(['timestamp', 'name', 'category', 'message', 'approved', 'private']);
-  } else if (!sh.getRange(1, 6).getValue()) {
-    sh.getRange(1, 6).setValue('private'); // backfill header on older sheets
+    sh.appendRow(['timestamp', 'name', 'category', 'message', 'approved', 'private', 'id', 'replyTo']);
+  } else {
+    if (!sh.getRange(1, 6).getValue()) sh.getRange(1, 6).setValue('private');  // backfill older sheets
+    if (!sh.getRange(1, 7).getValue()) sh.getRange(1, 7).setValue('id');
+    if (!sh.getRange(1, 8).getValue()) sh.getRange(1, 8).setValue('replyTo');
   }
   return sh;
 }
@@ -88,25 +90,29 @@ function addComment(e) {
   const name     = String(e.parameter.name     || '').trim().slice(0, MAX_NAME) || 'Guest';
   const category = String(e.parameter.category || '').trim().slice(0, MAX_CAT);
   const message  = String(e.parameter.message  || '').trim().slice(0, MAX_MSG);
-  const isPrivate = isTruthy(e.parameter.private);
+  const replyTo = String(e.parameter.replyTo || '').trim();
+  // replies are always public (they live inside a public thread)
+  const isPrivate = replyTo ? false : isTruthy(e.parameter.private);
   if (!message) return jsonOut({ ok: false, error: 'empty' });
+
+  const id = Utilities.getUuid();
 
   // Serialise writes so simultaneous posts can't clobber each other
   const lock = LockService.getScriptLock();
   try { lock.waitLock(8000); }
   catch (err) { return jsonOut({ ok: false, error: 'busy' }); }
   try {
-    commentsSheet().appendRow([new Date(), name, category, message, true, isPrivate]);
+    commentsSheet().appendRow([new Date(), name, category, message, true, isPrivate, id, replyTo]);
   } finally {
     lock.releaseLock();
   }
-  Logger.log('Comment added by %s [%s]%s', name, category, isPrivate ? ' (private)' : '');
+  Logger.log('Comment added by %s [%s]%s%s', name, category, isPrivate ? ' (private)' : '', replyTo ? ' (reply)' : '');
 
   if (isPrivate) {
     try { notifyPrivateNote(name, category, message); }
     catch (err) { Logger.log('ERROR emailing private note: %s', err.message); }
   }
-  return jsonOut({ ok: true });
+  return jsonOut({ ok: true, id: id });
 }
 
 function notifyPrivateNote(name, category, message) {
@@ -124,7 +130,8 @@ function getComments() {
   const out = [];
   for (let i = 1; i < vals.length; i++) {
     const ts = vals[i][0], name = vals[i][1], category = vals[i][2],
-          message = vals[i][3], approved = vals[i][4], isPrivate = vals[i][5];
+          message = vals[i][3], approved = vals[i][4], isPrivate = vals[i][5],
+          id = vals[i][6], replyTo = vals[i][7];
     if (!message) continue;
     if (isTruthy(isPrivate)) continue;                                   // private — couple only
     if (approved === false || approved === 'FALSE' || approved === 'No') continue; // hidden
@@ -132,7 +139,9 @@ function getComments() {
       t: ts instanceof Date ? ts.getTime() : Date.parse(ts) || 0,
       name: String(name || 'Guest'),
       category: String(category || ''),
-      message: String(message)
+      message: String(message),
+      id: String(id || ''),
+      replyTo: String(replyTo || '')
     });
   }
   return out;

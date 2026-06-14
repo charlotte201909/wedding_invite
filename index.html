@@ -343,7 +343,7 @@ body::after{
   padding:clamp(18px,2.6vw,28px);background:#fff;border:1px solid var(--line);
   border-radius:clamp(16px,2vw,24px);box-shadow:0 30px 60px -46px rgba(31,28,21,.5)}
 .wc-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.wc-name{flex:1 1 190px;min-width:0;font:inherit;font-size:1rem;color:var(--ink);
+.wc-name{flex:1 1 100%;min-width:0;font:inherit;font-size:1rem;color:var(--ink);
   background:#faf7f0;border:1px solid var(--line);border-radius:12px;padding:11px 15px}
 .wc-msg{width:100%;font-family:'Fraunces',serif;font-style:italic;font-size:1.08rem;color:var(--ink);
   line-height:1.5;resize:vertical;background:#faf7f0;border:1px solid var(--line);border-radius:14px;
@@ -377,6 +377,9 @@ body::after{
 .wc-seats{width:92px}
 .wc-from{flex:2 1 170px;min-width:0}
 .wc-phone{flex:1 1 150px;min-width:0}
+.wc-area{flex:1 1 150px;min-width:0}
+.wc-dates{flex:1 1 140px;min-width:0}
+.wc-contact{flex:2 1 180px;min-width:0}
 .wc-actions{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
 .wc-send-grp{display:flex;align-items:center;gap:16px;margin-left:auto}
 .wc-private{display:flex;align-items:center;gap:8px;cursor:pointer;
@@ -429,15 +432,11 @@ body::after{
 .bubble[data-cat="Accommodation"]{--bc:var(--w-rose)}
 .bubble[data-cat="Question"]{--bc:var(--w-green-deep)}
 @keyframes bubble-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.bubble-av{flex:0 0 auto;width:40px;height:40px;border-radius:50%;
+.bubble-av{flex:0 0 auto;width:38px;height:38px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-family:'Fraunces',serif;font-weight:500;font-size:1.08rem;color:#fff;background:var(--bc);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 8px 16px -10px rgba(31,28,21,.55);margin-top:2px}
-.bubble-body{position:relative;background:#fff;border-radius:18px;border-top-left-radius:5px;
-  padding:12px 17px 13px;max-width:86%;
-  box-shadow:0 1px 0 rgba(31,28,21,.04),0 18px 42px -30px rgba(31,28,21,.6)}
-.bubble-body::before{content:"";position:absolute;left:-5px;top:15px;width:11px;height:11px;
-  background:#fff;transform:rotate(45deg);border-radius:2px}
+  font-family:'Fraunces',serif;font-weight:500;font-size:1.02rem;color:#fff;background:var(--bc);margin-top:2px}
+.bubble-body{background:#fff;border:1px solid rgba(31,28,21,.06);border-radius:16px;
+  padding:12px 17px 13px;max-width:88%;box-shadow:0 6px 18px -14px rgba(120,70,80,.3)}
 .bubble-head{display:flex;align-items:baseline;gap:9px;margin-bottom:4px}
 .bubble-name{font-weight:700;font-size:.94rem;color:var(--ink);letter-spacing:-.01em}
 .bubble-tag{font-size:.63rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;
@@ -446,12 +445,49 @@ body::after{
 .bubble-time{margin-left:auto;font-size:.72rem;color:var(--ink-soft);opacity:.7;white-space:nowrap}
 .bubble-msg{font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;line-height:1.5;
   color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
+.bubble-foot{margin-top:8px}
+.bubble-reply{font:inherit;font-size:.78rem;font-weight:600;cursor:pointer;border:none;background:none;
+  color:var(--w-green-deep);padding:0;display:inline-flex;align-items:center;gap:5px;
+  -webkit-tap-highlight-color:transparent;transition:opacity .15s}
+.bubble-reply:hover{opacity:.6}
 
 @media(max-width:600px){
   .bubble-body{max-width:100%}
   .bubble-head{flex-wrap:wrap}
   .bubble-time{margin-left:0;flex-basis:100%;order:3}
 }
+
+/* thread slide-over */
+.thread[hidden]{display:none}
+.thread{position:fixed;inset:0;z-index:1000;display:flex;justify-content:flex-end}
+.thread-back{position:absolute;inset:0;background:rgba(40,22,28,.42);animation:th-fade .3s ease}
+.thread-panel{--w-green:#7E9E5B;--w-green-deep:#5E7D42;--w-straw:#E0738B;--w-rose:#CE8AA4;
+  position:relative;width:min(460px,100%);height:100%;display:flex;flex-direction:column;overflow:hidden;
+  background:linear-gradient(168deg,#FCEFF0 0%,#F6F1E9 60%,#EDF3E4 100%);
+  box-shadow:-24px 0 70px -30px rgba(40,22,28,.5);animation:th-slide .34s cubic-bezier(.18,.8,.25,1)}
+@keyframes th-fade{from{opacity:0}to{opacity:1}}
+@keyframes th-slide{from{transform:translateX(100%)}to{transform:none}}
+.thread-head{display:flex;align-items:center;justify-content:space-between;
+  padding:clamp(16px,2.4vw,22px) clamp(18px,2.6vw,26px) 12px}
+.thread-title{font-family:'Fraunces',serif;font-style:italic;font-size:1.35rem;color:var(--ink)}
+.thread-close{font:inherit;font-size:1.5rem;line-height:1;cursor:pointer;border:none;background:none;
+  color:var(--ink-soft);padding:4px 6px;border-radius:50%;transition:background .15s}
+.thread-close:hover{background:rgba(31,28,21,.07)}
+.thread-scroll{flex:1;overflow-y:auto;padding:4px clamp(18px,2.6vw,26px) 18px;
+  display:flex;flex-direction:column;gap:18px;scrollbar-width:thin;scrollbar-color:rgba(126,158,91,.45) transparent}
+.thread-scroll::-webkit-scrollbar{width:7px}
+.thread-scroll::-webkit-scrollbar-thumb{background:rgba(126,158,91,.38);border-radius:10px}
+.thread-reps{display:flex;flex-direction:column;gap:14px;
+  margin-left:14px;padding-left:16px;border-left:2px solid rgba(126,158,91,.3)}
+.thread-reps .bubble-av{width:32px;height:32px;font-size:.9rem}
+.thread-none{font-family:'Fraunces',serif;font-style:italic;color:var(--ink-soft);font-size:.95rem;
+  margin-left:14px}
+.thread-form{border-top:1px solid var(--line);background:#fff;
+  padding:clamp(14px,2vw,18px) clamp(18px,2.6vw,26px);display:flex;flex-direction:column;gap:10px}
+.thread-form .wc-name,.thread-form .wc-msg{background:#faf6f2}
+.thread-form .wc-name{flex:none;width:100%}
+.thread-form .wc-msg{min-height:64px}
+.thread-form .wc-actions{justify-content:flex-end}
 
 /* footer */
 .foot{background:var(--ink);color:var(--paper);
@@ -637,7 +673,7 @@ body::after{
   <div class="wall-wrap">
     <span class="chapter sr">The Wall</span>
     <h2 class="wall-title sr">Notes &amp; <em>wishes</em></h2>
-    <p class="wall-intro sr">Say hi, sort out a carpool, or share where you're staying. Add yours below.</p>
+    <p class="wall-intro sr">Say hi, sort out a carpool, or share where you're staying.</p>
 
     <div class="wall-filter sr" id="wallFilter" role="group" aria-label="Filter notes">
       <button type="button" class="wf-tab is-on" data-filter="all">All <span class="wf-count" data-c="all">0</span></button>
@@ -676,6 +712,17 @@ body::after{
             <input class="wc-f wc-phone" id="wcPhone" type="tel" maxlength="30" placeholder="Phone (optional)">
           </div>
         </div>
+        <div class="wc-extra" id="wcStay" hidden>
+          <div class="wc-dir" id="wcStayDir" role="group" aria-label="Sharing or looking for a place">
+            <button type="button" class="wc-dirbtn is-on" data-dir="Sharing a place">🏡 Sharing a place</button>
+            <button type="button" class="wc-dirbtn" data-dir="Looking for a place">🔎 Looking for a place</button>
+          </div>
+          <div class="wc-fields">
+            <input class="wc-f wc-area" id="wcArea" type="text" maxlength="60" placeholder="Area (e.g. Bowral)">
+            <input class="wc-f wc-dates" id="wcDates" type="text" maxlength="40" placeholder="Nights / dates (optional)">
+            <input class="wc-f wc-contact" id="wcContact" type="text" maxlength="80" placeholder="Link or phone (optional)">
+          </div>
+        </div>
         <textarea class="wc-msg" id="wcMsg" maxlength="800" rows="3" placeholder="Write something lovely…" required></textarea>
         <div class="wc-actions">
           <label class="wc-private"><input type="checkbox" id="wcPrivate"> Just for Charlotte &amp; Charles (private)</label>
@@ -688,6 +735,26 @@ body::after{
     </div>
   </div>
 </section>
+
+<!-- ===== THREAD SLIDE-OVER ===== -->
+<div class="thread" id="thread" hidden>
+  <div class="thread-back" id="threadBack"></div>
+  <aside class="thread-panel" role="dialog" aria-modal="true" aria-label="Note thread">
+    <div class="thread-head">
+      <span class="thread-title">Thread</span>
+      <button class="thread-close" id="threadClose" type="button" aria-label="Close">×</button>
+    </div>
+    <div class="thread-scroll" id="threadScroll"></div>
+    <form class="thread-form" id="threadForm" autocomplete="off">
+      <input class="wc-name" id="trName" type="text" maxlength="60" placeholder="Your name" required>
+      <textarea class="wc-msg" id="trMsg" maxlength="800" rows="2" placeholder="Write a reply…" required></textarea>
+      <div class="wc-actions">
+        <span class="wc-status" id="trStatus" aria-live="polite"></span>
+        <button class="btn btn-solid" id="trSend" type="submit">Reply</button>
+      </div>
+    </form>
+  </aside>
+</div>
 
 <!-- ===== FOOTER ===== -->
 <footer class="foot">
@@ -764,10 +831,30 @@ body::after{
     var seatsEl   = document.getElementById('wcSeats');
     var fromEl    = document.getElementById('wcFrom');
     var phoneEl   = document.getElementById('wcPhone');
+    var stayEl    = document.getElementById('wcStay');
+    var stayDirWrap = document.getElementById('wcStayDir');
+    var areaEl    = document.getElementById('wcArea');
+    var datesEl   = document.getElementById('wcDates');
+    var contactEl = document.getElementById('wcContact');
+    // thread slide-over
+    var threadEl     = document.getElementById('thread');
+    var threadBack   = document.getElementById('threadBack');
+    var threadClose  = document.getElementById('threadClose');
+    var threadScroll = document.getElementById('threadScroll');
+    var threadForm   = document.getElementById('threadForm');
+    var trName   = document.getElementById('trName');
+    var trMsg    = document.getElementById('trMsg');
+    var trSend   = document.getElementById('trSend');
+    var trStatus = document.getElementById('trStatus');
+
     var category  = 'Wishes';
-    var direction = 'Offering a lift';
+    var carDir    = 'Offering a lift';
+    var stayDir   = 'Sharing a place';
     var activeFilter = 'all';
-    var allComments = [];
+    var allComments = [];          // top-level only
+    var repliesByParent = {};      // parentId -> [replies]
+    var byId = {};                 // id -> comment
+    var openParentId = null;
 
     var TAGS = { Wishes:'💛 Wishes', Carpool:'🚗 Carpool', Accommodation:'🏡 Stay', Question:'💬 Question' };
     var EMPTY = {
@@ -787,20 +874,53 @@ body::after{
       updateComposeMode();
     });
 
-    // carpool: extra fields appear only for that category
+    // structured fields appear only for Carpool / Accommodation
     function updateComposeMode() {
-      var isCar = category === 'Carpool';
+      var isCar = category === 'Carpool', isStay = category === 'Accommodation';
       if (carpoolEl) carpoolEl.hidden = !isCar;
-      msgEl.placeholder = isCar ? 'Anything else? (optional)' : 'Write something lovely…';
-      if (isCar) msgEl.removeAttribute('required'); else msgEl.setAttribute('required', '');
+      if (stayEl)    stayEl.hidden    = !isStay;
+      var optional = isCar || isStay;
+      msgEl.placeholder = optional ? 'Anything else? (optional)' : 'Write something lovely…';
+      if (optional) msgEl.removeAttribute('required'); else msgEl.setAttribute('required', '');
     }
-    if (dirWrap) dirWrap.addEventListener('click', function (ev) {
-      var b = ev.target.closest('.wc-dirbtn'); if (!b) return;
-      dirWrap.querySelectorAll('.wc-dirbtn').forEach(function (x) { x.classList.remove('is-on'); });
-      b.classList.add('is-on');
-      direction = b.getAttribute('data-dir');
-    });
+    function wireDir(wrap, set) {
+      if (!wrap) return;
+      wrap.addEventListener('click', function (ev) {
+        var b = ev.target.closest('.wc-dirbtn'); if (!b) return;
+        wrap.querySelectorAll('.wc-dirbtn').forEach(function (x) { x.classList.remove('is-on'); });
+        b.classList.add('is-on');
+        set(b.getAttribute('data-dir'));
+      });
+    }
+    wireDir(dirWrap, function (v) { carDir = v; });
+    wireDir(stayDirWrap, function (v) { stayDir = v; });
     updateComposeMode();
+
+    // assemble the message from the structured fields (or the free-text note)
+    function buildMessage() {
+      var note = (msgEl.value || '').trim();
+      if (category === 'Carpool') {
+        var from = (fromEl.value || '').trim();
+        if (!from) { setStatus('Where are you travelling from?', true); fromEl.focus(); return null; }
+        var seats = (seatsEl.value || '').trim(), phone = (phoneEl.value || '').trim();
+        var p = [carDir];
+        if (seats) p.push(seats + (seats === '1' ? ' seat' : ' seats'));
+        p.push('from ' + from);
+        if (phone) p.push('☎ ' + phone);
+        return p.join(' · ') + (note ? '\n' + note : '');
+      }
+      if (category === 'Accommodation') {
+        var area = (areaEl.value || '').trim();
+        if (!area) { setStatus('Which area?', true); areaEl.focus(); return null; }
+        var dates = (datesEl.value || '').trim(), contact = (contactEl.value || '').trim();
+        var q = [stayDir, area];
+        if (dates) q.push(dates);
+        if (contact) q.push(contact);
+        return q.join(' · ') + (note ? '\n' + note : '');
+      }
+      if (!note) { msgEl.focus(); return null; }
+      return note;
+    }
 
     // section filter tabs
     if (filterEl) filterEl.addEventListener('click', function (ev) {
@@ -828,7 +948,7 @@ body::after{
     }
 
     // Build a bubble with textContent only (no HTML injection)
-    function makeBubble(c) {
+    function makeBubble(c, opts) {
       var b = document.createElement('div');
       b.className = 'bubble';
       if (c.category) b.setAttribute('data-cat', c.category);
@@ -852,6 +972,16 @@ body::after{
 
       var ms = document.createElement('div'); ms.className = 'bubble-msg';
       ms.textContent = c.message; body.appendChild(ms);
+
+      // reply affordance on top-level notes (not inside the thread view)
+      if (!(opts && opts.thread) && !c.replyTo) {
+        var n = (repliesByParent[c.id] || []).length;
+        var foot = document.createElement('div'); foot.className = 'bubble-foot';
+        var rb = document.createElement('button'); rb.type = 'button'; rb.className = 'bubble-reply';
+        rb.setAttribute('data-id', c.id || '');
+        rb.textContent = n ? ('💬 ' + n + (n === 1 ? ' reply' : ' replies')) : '💬 Reply';
+        foot.appendChild(rb); body.appendChild(foot);
+      }
 
       b.appendChild(body);
       return b;
@@ -897,9 +1027,17 @@ body::after{
     }
 
     function setData(list) {
-      allComments = Array.isArray(list) ? list.slice() : [];
+      var arr = Array.isArray(list) ? list : [];
+      var tops = [], reps = {}, idx = {};
+      arr.forEach(function (c) { if (c.id) idx[c.id] = c; });
+      arr.forEach(function (c) {
+        if (c.replyTo) { (reps[c.replyTo] = reps[c.replyTo] || []).push(c); }
+        else tops.push(c);
+      });
+      allComments = tops; repliesByParent = reps; byId = idx;
       updateCounts();
       applyFilter();
+      if (openParentId) renderThread();
     }
 
     function load() {
@@ -914,27 +1052,90 @@ body::after{
       statusEl.textContent = txt;
     }
 
+    /* ── threads ── */
+    if (listEl) listEl.addEventListener('click', function (ev) {
+      var rb = ev.target.closest('.bubble-reply'); if (!rb) return;
+      var id = rb.getAttribute('data-id'); if (id) openThread(id);
+    });
+    function openThread(id) {
+      openParentId = id; renderThread();
+      threadEl.hidden = false; document.body.style.overflow = 'hidden';
+      setTimeout(function () { if (trMsg) trMsg.focus(); }, 60);
+    }
+    function closeThread() {
+      threadEl.hidden = true; openParentId = null;
+      document.body.style.overflow = ''; if (trStatus) trStatus.textContent = '';
+    }
+    function renderThread() {
+      var parent = byId[openParentId];
+      threadScroll.innerHTML = '';
+      if (!parent) { closeThread(); return; }
+      threadScroll.appendChild(makeBubble(parent, { thread: true }));
+      var reps = (repliesByParent[openParentId] || []).slice()
+        .sort(function (a, b) { return (a.t || 0) - (b.t || 0); }); // oldest first
+      if (!reps.length) {
+        var none = document.createElement('p'); none.className = 'thread-none';
+        none.textContent = 'No replies yet — say something below.';
+        threadScroll.appendChild(none);
+      } else {
+        var wrap = document.createElement('div'); wrap.className = 'thread-reps';
+        reps.forEach(function (r) { wrap.appendChild(makeBubble(r, { thread: true })); });
+        threadScroll.appendChild(wrap);
+      }
+    }
+    if (threadClose) threadClose.addEventListener('click', closeThread);
+    if (threadBack)  threadBack.addEventListener('click', closeThread);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && threadEl && !threadEl.hidden) closeThread();
+    });
+
+    if (threadForm) threadForm.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var parent = byId[openParentId]; if (!parent) return;
+      var rName = (trName.value || '').trim(), rMsg = (trMsg.value || '').trim();
+      if (!rMsg) { trMsg.focus(); return; }
+      var sendName = rName || 'Guest';
+      trSend.disabled = true; trStatus.className = 'wc-status'; trStatus.textContent = 'Posting…';
+
+      var temp = { t: Date.now(), name: sendName, category: parent.category, message: rMsg, replyTo: openParentId, _temp: true };
+      (repliesByParent[openParentId] = repliesByParent[openParentId] || []).push(temp);
+      renderThread(); applyFilter(); // refresh reply count on the main bubble
+      trMsg.value = '';
+
+      function rdone() {
+        trStatus.textContent = 'Posted 💛'; trSend.disabled = false;
+        setTimeout(function () { if (trStatus) trStatus.textContent = ''; }, 3500);
+        setTimeout(load, 1400);
+      }
+      function rfail() {
+        repliesByParent[openParentId] = (repliesByParent[openParentId] || []).filter(function (x) { return x !== temp; });
+        renderThread(); applyFilter();
+        trName.value = rName; trMsg.value = rMsg;
+        trStatus.className = 'wc-status err'; trStatus.textContent = "Didn't send — try again?";
+        trSend.disabled = false;
+      }
+      var body = new URLSearchParams({
+        action: 'comment', name: sendName, category: parent.category || '', message: rMsg, replyTo: openParentId
+      });
+      fetch(GAS_URL, { method: 'POST', body: body })
+        .then(function (r) { return r.json(); })
+        .then(function (res) { if (res && res.ok) rdone(); else throw new Error('nok'); })
+        .catch(function () {
+          fetch(GAS_URL + '?action=comments').then(function (r) { return r.json(); }).then(function (data) {
+            var saved = Array.isArray(data) && data.some(function (c) {
+              return c.message === rMsg && c.name === sendName && c.replyTo === openParentId;
+            });
+            if (saved) { setData(data); rdone(); } else { rfail(); }
+          }).catch(rfail);
+        });
+    });
+
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
       var name = (nameEl.value || '').trim();
       var rawNote = (msgEl.value || '').trim();
-      var message;
-
-      if (category === 'Carpool') {
-        var from = (fromEl.value || '').trim();
-        if (!from) { setStatus('Where are you travelling from?', true); fromEl.focus(); return; }
-        var seats = (seatsEl.value || '').trim();
-        var phone = (phoneEl.value || '').trim();
-        var parts = [direction];
-        if (seats) parts.push(seats + (seats === '1' ? ' seat' : ' seats'));
-        parts.push('from ' + from);
-        if (phone) parts.push('☎ ' + phone);
-        message = parts.join(' · ');
-        if (rawNote) message += '\n' + rawNote;
-      } else {
-        message = rawNote;
-        if (!message) { msgEl.focus(); return; }
-      }
+      var message = buildMessage();
+      if (message === null) return;
 
       var isPrivate = !!(privateEl && privateEl.checked);
       var sendName = name || 'Guest';
@@ -956,9 +1157,12 @@ body::after{
       function succeed() {
         setStatus(isPrivate ? 'Sent privately — thank you! 💛' : 'Posted — thank you! 💛', false);
         sendEl.disabled = false;
-        if (seatsEl) seatsEl.value = '';        // clear carpool extras
+        if (seatsEl) seatsEl.value = '';        // clear structured extras
         if (fromEl)  fromEl.value  = '';
         if (phoneEl) phoneEl.value = '';
+        if (areaEl)    areaEl.value    = '';
+        if (datesEl)   datesEl.value   = '';
+        if (contactEl) contactEl.value = '';
         setTimeout(function () { if (statusEl) statusEl.textContent = ''; }, 4500);
         if (!isPrivate) setTimeout(load, 1400); // reconcile with the server's real list
       }
