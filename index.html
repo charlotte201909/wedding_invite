@@ -248,6 +248,16 @@ body::after{
 .tl-body h4{font-weight:700;font-size:clamp(1.05rem,1.5vw,1.22rem);letter-spacing:-.01em;line-height:1.12}
 .tl-body p{margin-top:6px;color:var(--ink-soft);font-family:'Fraunces',serif;font-style:italic;
   font-size:clamp(.9rem,1.1vw,1rem);line-height:1.45;max-width:720px}
+/* collapsible run-of-day descriptions */
+.timeline .tl-body p{max-height:0;margin-top:0;opacity:0;overflow:hidden;
+  transition:max-height .4s ease,opacity .3s ease,margin-top .3s ease}
+.timeline.show .tl-body p{max-height:160px;margin-top:6px;opacity:1}
+.tl-toggle{display:inline-flex;align-items:center;gap:6px;margin-top:clamp(12px,1.6vw,18px);
+  font:inherit;font-size:.84rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  cursor:pointer;background:none;border:none;color:var(--red);padding:4px 2px;transition:opacity .15s}
+.tl-toggle::after{content:"↓";font-size:.95em;transition:transform .3s ease}
+.tl-toggle[aria-expanded="true"]::after{transform:rotate(180deg)}
+.tl-toggle:hover{opacity:.6}
 
 /* "more to come" note under the run-of-day */
 .day-note{margin:clamp(16px,2.2vw,26px) auto 0;max-width:540px;text-align:center;
@@ -623,6 +633,7 @@ body::after{
       </div>
     </li>
   </ol>
+  <button class="tl-toggle sr" id="tlToggle" type="button" aria-expanded="false" aria-controls="plan">Show details</button>
 
   <p class="day-note sr"><b>More to come:</b> travel, stay, parking tips and all the little details. Keep an eye on this page closer to the time.</p>
   </div>
@@ -648,17 +659,6 @@ body::after{
         src="https://docs.google.com/forms/d/e/1FAIpQLScOeQDf5ZAONGfqQfMPva-0CJdQpO9RJ4M6LMyjoVtENZuvlA/viewform?embedded=true"
         loading="lazy">Loading…</iframe>
     </div>
-  </div>
-</section>
-
-<!-- ===== P.S. — THE CATS ===== -->
-<section class="ps-section">
-  <div class="ps sr">
-    <div class="ps-cats">
-      <img src="docs/Gingie_cutout.png" alt="Gingie the ginger cat in a tuxedo">
-      <img src="docs/Meg_cutout.png" alt="Meg the black cat in a dress">
-    </div>
-    <p class="ps-text">P.S. Gingie and Meg <em>can't make it</em> (someone has to guard the house), but they're handling questions. Email them at <a href="mailto:gingieandmeg@gmail.com?subject=A%20question%20for%20the%20celebration%20committee%20%F0%9F%90%BE">gingieandmeg@gmail.com</a>.</p>
   </div>
 </section>
 
@@ -771,6 +771,17 @@ body::after{
     window.addEventListener('scroll', function () {
       if (!hidden && window.scrollY > 40) { cue.classList.add('hide'); hidden = true; }
     }, { passive: true });
+  })();
+
+  /* ── The Day: toggle the run-of-day descriptions ──────────── */
+  (function () {
+    var t = document.getElementById('tlToggle'), ol = document.getElementById('plan');
+    if (!t || !ol) return;
+    t.addEventListener('click', function () {
+      var open = ol.classList.toggle('show');
+      t.setAttribute('aria-expanded', open ? 'true' : 'false');
+      t.textContent = open ? 'Hide details' : 'Show details';
+    });
   })();
 
   /* ── RSVP → reveal embedded Google Form ───────────────────── */
