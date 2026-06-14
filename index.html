@@ -416,39 +416,39 @@ body::after{
 .wall-scroll::after{content:"";position:absolute;left:0;right:0;bottom:0;height:54px;pointer-events:none;
   background:linear-gradient(rgba(244,241,233,0),#F4F1E9);opacity:0;transition:opacity .25s}
 .wall-scroll.more::after{opacity:1}
-.wall-list{display:flex;flex-direction:column;gap:clamp(20px,3vw,30px);
-  max-height:clamp(360px,56vh,580px);overflow-y:auto;overflow-x:hidden;
-  padding:4px 12px 8px 4px;-webkit-overflow-scrolling:touch;
+.wall-list{display:flex;flex-direction:column;gap:clamp(9px,1.3vw,13px);
+  max-height:clamp(340px,54vh,560px);overflow-y:auto;overflow-x:hidden;
+  padding:4px 12px 8px 2px;-webkit-overflow-scrolling:touch;
   scrollbar-width:thin;scrollbar-color:rgba(126,158,91,.45) transparent}
 .wall-list::-webkit-scrollbar{width:7px}
 .wall-list::-webkit-scrollbar-thumb{background:rgba(126,158,91,.38);border-radius:10px}
 .wall-list::-webkit-scrollbar-track{background:transparent}
 .wall-empty{text-align:center;color:var(--ink-soft);font-family:'Fraunces',serif;font-style:italic;
   font-size:1.05rem;padding:clamp(18px,4vw,38px) 0}
-.bubble{--bc:var(--w-green);display:flex;gap:12px;align-items:flex-start;
-  animation:bubble-in .5s cubic-bezier(.18,.8,.25,1)}
+.bubble{--bc:var(--w-green);display:flex;gap:9px;align-items:flex-start;
+  animation:bubble-in .45s cubic-bezier(.18,.8,.25,1)}
 .bubble[data-cat="Wishes"]{--bc:var(--w-straw)}
 .bubble[data-cat="Carpool"]{--bc:var(--w-green)}
 .bubble[data-cat="Accommodation"]{--bc:var(--w-rose)}
 .bubble[data-cat="Question"]{--bc:var(--w-green-deep)}
-@keyframes bubble-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.bubble-av{flex:0 0 auto;width:34px;height:34px;border-radius:50%;
+@keyframes bubble-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.bubble-av{flex:0 0 auto;width:29px;height:29px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-family:'Fraunces',serif;font-weight:500;font-size:.95rem;color:#fff;background:var(--bc);margin-top:1px}
+  font-family:'Fraunces',serif;font-weight:500;font-size:.84rem;color:#fff;background:var(--bc);margin-top:1px}
 .bubble-main{flex:1 1 auto;min-width:0}
-.bubble-head{display:flex;align-items:baseline;gap:8px;margin:1px 0 5px}
-.bubble-name{font-weight:700;font-size:.9rem;color:var(--ink);letter-spacing:-.01em}
-.bubble-tag{font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;font-weight:700;
-  padding:1px 8px;border-radius:30px;color:var(--bc);
+.bubble-head{display:flex;align-items:baseline;gap:7px;margin:0 0 3px;line-height:1.1}
+.bubble-name{font-weight:700;font-size:.86rem;color:var(--ink);letter-spacing:-.01em}
+.bubble-tag{font-size:.58rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;
+  padding:1px 7px;border-radius:30px;color:var(--bc);
   background:rgba(31,28,21,.045);border:1px solid rgba(31,28,21,.07)}
-.bubble-time{margin-left:auto;font-size:.7rem;color:var(--ink-soft);opacity:.7;white-space:nowrap}
+.bubble-time{margin-left:auto;font-size:.68rem;color:var(--ink-soft);opacity:.65;white-space:nowrap}
 .bubble-body{display:inline-block;max-width:100%;background:#fff;border:1px solid rgba(31,28,21,.06);
-  border-radius:14px;border-top-left-radius:4px;padding:8px 14px;
-  box-shadow:0 4px 14px -12px rgba(120,70,80,.4)}
-.bubble-msg{font-family:'Fraunces',serif;font-style:italic;font-size:1.02rem;line-height:1.45;
+  border-radius:13px;border-top-left-radius:3px;padding:6px 12px;
+  box-shadow:0 3px 12px -11px rgba(120,70,80,.4)}
+.bubble-msg{font-family:'Fraunces',serif;font-style:italic;font-size:1rem;line-height:1.35;
   color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
-.bubble-foot{margin-top:6px}
-.bubble-reply{font:inherit;font-size:.78rem;font-weight:600;cursor:pointer;border:none;background:none;
+.bubble-foot{margin-top:3px}
+.bubble-reply{font:inherit;font-size:.74rem;font-weight:600;cursor:pointer;border:none;background:none;
   color:var(--w-green-deep);padding:0;display:inline-flex;align-items:center;gap:5px;
   -webkit-tap-highlight-color:transparent;transition:opacity .15s}
 .bubble-reply:hover{opacity:.6}
